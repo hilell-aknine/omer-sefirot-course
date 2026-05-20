@@ -126,12 +126,12 @@ a{color:inherit}
 .hdr-logo svg{width:22px;height:22px}
 .hdr-brand-text{display:flex;flex-direction:column;line-height:1.2}
 .hdr-title{font-family:var(--font-display);font-weight:700;font-size:1.18rem;color:var(--c-black);letter-spacing:-.01em}
-.hdr-sub{font-size:.72rem;color:var(--c-gray-500);font-weight:500}
+.hdr-sub{font-size:.72rem;color:var(--c-gray-500);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hdr-now{
   flex:1;text-align:center;font-weight:600;font-size:.92rem;color:var(--c-gray-700);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;
 }
-.hdr-progress{display:flex;align-items:center;gap:10px;flex:none}
+.hdr-progress{display:flex;align-items:center;gap:10px;flex:none;margin-inline-start:auto}
 .hdr-prog-bar{width:120px;height:7px;border-radius:99px;background:rgba(20,20,25,.1);overflow:hidden}
 .hdr-prog-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#3a3a3e,#0c0c0d);transition:width .6s var(--ease)}
 .hdr-prog-pct{font-weight:700;font-size:.86rem;color:var(--c-black);min-width:38px;text-align:center;font-variant-numeric:tabular-nums}
@@ -142,7 +142,7 @@ a{color:inherit}
 .layout{padding-block-start:var(--header-h);min-height:100vh}
 .main{
   margin-inline-end:var(--sidebar-w);
-  padding:34px clamp(20px,4vw,52px) 80px;
+  padding:34px clamp(20px,4vw,52px) calc(104px + env(safe-area-inset-bottom));
   min-height:calc(100vh - var(--header-h));
 }
 
@@ -278,9 +278,9 @@ a{color:inherit}
 .hero-cta:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(10,10,11,.4),inset 0 1px 0 rgba(255,255,255,.16)}
 .hero-cta svg{width:17px;height:17px}
 
-/* stats */
+/* stats — always one row of 4; compacts down instead of wrapping */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-block-start:18px}
-.stat{border-radius:var(--r-lg);padding:20px}
+.stat{border-radius:var(--r-lg);padding:20px;min-width:0}
 .stat-val{font-family:var(--font-display);font-weight:700;font-size:2rem;color:var(--c-black);line-height:1;font-variant-numeric:tabular-nums}
 .stat-val small{font-size:1rem;color:var(--c-gray-400);font-weight:500}
 .stat-label{font-size:.8rem;color:var(--c-gray-500);font-weight:600;margin-block-start:7px}
@@ -500,13 +500,22 @@ a{color:inherit}
    ============================================================ */
 @media(max-width:1180px){
   .hero{grid-template-columns:300px 1fr}
-  .stats{grid-template-columns:repeat(2,1fr)}
   .mod-grid{grid-template-columns:repeat(2,1fr)}
+  /* stats נשארים row אחד — מתכווצים במקום לעבור ל-2x2 */
+  .stats{gap:10px}
+  .stat{padding:15px 12px}
+  .stat-val{font-size:1.6rem}
+  .stat-val small{font-size:.85rem}
+  .stat-label{font-size:.72rem;margin-block-start:5px}
+}
+@media(max-width:1024px){
+  /* דפדפן צר — מסתירים את בלוק מידע הקורס מה-Header.
+     שם האתר (+ subtitle) ושם השיעור הנוכחי נשארים גלויים. */
+  .hdr-now.is-meta{display:none}
 }
 @media(max-width:900px){
   :root{--sidebar-w:340px}
   .hdr-menu{display:flex}
-  .hdr-now{display:none}
   .main{margin-inline-end:0}
   .sidebar{transform:translateX(100%);box-shadow:var(--shadow-lg)}
   .sidebar.open{transform:translateX(0)}
@@ -518,10 +527,15 @@ a{color:inherit}
   .hdr{gap:10px;padding-inline:14px}
   .hdr-prog-bar{width:64px}
   .hdr-sub{display:none}
-  .main{padding:22px 16px 70px}
-  .hero-body{padding:24px 22px}
+  .main{padding:22px 16px calc(96px + env(safe-area-inset-bottom))}
+  .hero-body{padding:22px 20px}
   .hero-title{font-size:1.4rem}
-  .stats{grid-template-columns:repeat(2,1fr);gap:10px}
+  /* stats — שורה אחת קומפקטית של 4, מעל הקיפול */
+  .stats{gap:7px;margin-block-start:12px}
+  .stat{padding:11px 7px;text-align:center;border-radius:var(--r-md)}
+  .stat-val{font-size:1.25rem}
+  .stat-val small{font-size:.72rem}
+  .stat-label{font-size:.61rem;margin-block-start:3px;line-height:1.25;font-weight:600}
   .mod-grid{grid-template-columns:1fr}
   .pl-title{font-size:1.3rem}
   .pl-complete{margin-inline-start:0;width:100%;justify-content:center}
@@ -560,10 +574,10 @@ a{color:inherit}
     </div>
     <div class="hdr-brand-text">
       <span class="hdr-title">ספירת העומר</span>
-      <span class="hdr-sub">עשר הספירות · קורס וידאו</span>
+      <span class="hdr-sub">עשר הספירות · 63 שיעורים</span>
     </div>
   </div>
-  <div class="hdr-now" id="hdrNow">קורס מלא · 63 שיעורים</div>
+  <div class="hdr-now is-meta" id="hdrNow">קורס מלא · 63 שיעורים</div>
   <div class="hdr-progress">
     <div class="hdr-prog-bar"><div class="hdr-prog-fill" id="hdrProgFill"></div></div>
     <span class="hdr-prog-pct" id="hdrProgPct">0%</span>
@@ -883,6 +897,12 @@ function saveProgress(){lsSet(LS.done,JSON.stringify([...completed]));}
    עזרי תצוגה
    ============================================================ */
 const $=s=>document.querySelector(s);
+function setHdrNow(text,isMeta){
+  /* isMeta=true → מידע קורס כללי (מוסתר בדפדפן צר). false → שם שיעור/מסך (תמיד גלוי). */
+  const el=$('#hdrNow');
+  el.textContent=text;
+  el.classList.toggle('is-meta',!!isMeta);
+}
 function thumb(id){return 'https://img.youtube.com/vi/'+id+'/hqdefault.jpg';}
 function embed(id){return 'https://www.youtube.com/embed/'+id+'?rel=0&modestbranding=1&playsinline=1&autoplay=1';}
 function durMin(s){const p=s.split(':').map(Number);return p.length===3?p[0]*60+p[1]+p[2]/60:p[0]+p[1]/60;}
@@ -1022,7 +1042,7 @@ function selectLesson(id){
     if(row)row.scrollIntoView({behavior:'smooth',block:'center'});
   },60);
 
-  $('#hdrNow').textContent=l.title;
+  setHdrNow(l.title,false);
   window.scrollTo({top:0,behavior:'smooth'});
   closeSidebar();
   if(location.hash!=='#v='+id) history.replaceState(null,'','#v='+id);
@@ -1165,7 +1185,7 @@ function showAffiliate(){
   $('#affLink').value=refLink();
   $('#affShares').textContent=parseInt(lsGet(REF.shares,'0'),10)||0;
   $('#affReferred').hidden=!referredBy();
-  $('#hdrNow').textContent='תוכנית השותפים';
+  setHdrNow('תוכנית השותפים',false);
   closeSidebar();
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -1182,7 +1202,7 @@ function init(){
 
   /* total length */
   const totMin=FLAT.reduce((s,l)=>s+durMin(l.dur),0);
-  $('#hdrNow').textContent='קורס מלא · 63 שיעורים · כ-'+Math.round(totMin/60)+' שעות';
+  setHdrNow('קורס מלא · 63 שיעורים · כ-'+Math.round(totMin/60)+' שעות',true);
 
   /* sidebar events (delegation) */
   $('#sbList').addEventListener('click',e=>{
@@ -1207,7 +1227,7 @@ function init(){
     const d=$('#dashboard'); d.hidden=false;
     d.classList.remove('fade'); void d.offsetWidth; d.classList.add('fade');
     renderDashboard();
-    $('#hdrNow').textContent='קורס מלא · 63 שיעורים';
+    setHdrNow('קורס מלא · 63 שיעורים',true);
     history.replaceState(null,'','#');
     window.scrollTo({top:0,behavior:'smooth'});
   });
@@ -1231,7 +1251,7 @@ function init(){
     const d=$('#dashboard'); d.hidden=false;
     d.classList.remove('fade'); void d.offsetWidth; d.classList.add('fade');
     renderDashboard();
-    $('#hdrNow').textContent='קורס מלא · 63 שיעורים';
+    setHdrNow('קורס מלא · 63 שיעורים',true);
     window.scrollTo({top:0,behavior:'smooth'});
   });
 
