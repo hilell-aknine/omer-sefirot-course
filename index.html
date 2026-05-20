@@ -144,18 +144,18 @@ a{color:inherit}
    ============================================================ */
 .layout{padding-block-start:var(--header-h);min-height:100vh}
 .main{
-  margin-inline-end:var(--sidebar-w);
+  margin-inline-start:var(--sidebar-w);
   padding:34px clamp(20px,4vw,52px) calc(104px + env(safe-area-inset-bottom));
   min-height:calc(100vh - var(--header-h));
 }
 
 /* ---- sidebar ---- */
 .sidebar{
-  position:fixed;inset-block:var(--header-h) 0;inset-inline-end:0;
+  position:fixed;inset-block:var(--header-h) 0;inset-inline-start:0;
   width:var(--sidebar-w);z-index:50;
   display:flex;flex-direction:column;
-  border-radius:0;border-block:none;border-inline-end:none;
-  border-inline-start:1px solid var(--edge);
+  border-radius:0;border-block:none;border-inline-start:none;
+  border-inline-end:1px solid var(--edge);
   transition:transform .42s var(--ease);
 }
 .sb-top{padding:22px 22px 16px;border-block-end:1px solid var(--edge-hair);flex:none}
@@ -519,9 +519,9 @@ a{color:inherit}
 @media(max-width:900px){
   :root{--sidebar-w:340px}
   .hdr-menu{display:flex}
-  .main{margin-inline-end:0}
-  /* הסיידבר ממוקם בקצה השמאלי (inset-inline-end ב-RTL) — לכן off-canvas שמאלה */
-  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow-lg);width:min(340px,87vw)}
+  .main{margin-inline-start:0}
+  /* הסיידבר ממוקם בקצה הימני (inset-inline-start ב-RTL) — לכן off-canvas ימינה */
+  .sidebar{transform:translateX(100%);box-shadow:-14px 0 50px rgba(20,20,25,.26);width:min(340px,87vw)}
   .sidebar.open{transform:translateX(0)}
   .hero{grid-template-columns:1fr}
   .hero-thumb{min-height:200px;aspect-ratio:16/9}
