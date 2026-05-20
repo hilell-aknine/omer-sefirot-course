@@ -55,6 +55,9 @@
 *{margin:0;padding:0;box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{height:100%}
+/* clip horizontal overflow at the viewport — keeps the off-canvas drawer
+   (position:fixed) from creating a horizontal scrollbar / bleeding in on mobile */
+html{overflow-x:hidden}
 body{
   font-family:var(--font-body);
   background:var(--bg-base);
@@ -517,7 +520,8 @@ a{color:inherit}
   :root{--sidebar-w:340px}
   .hdr-menu{display:flex}
   .main{margin-inline-end:0}
-  .sidebar{transform:translateX(100%);box-shadow:var(--shadow-lg)}
+  /* הסיידבר ממוקם בקצה השמאלי (inset-inline-end ב-RTL) — לכן off-canvas שמאלה */
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow-lg);width:min(340px,87vw)}
   .sidebar.open{transform:translateX(0)}
   .hero{grid-template-columns:1fr}
   .hero-thumb{min-height:200px;aspect-ratio:16/9}
