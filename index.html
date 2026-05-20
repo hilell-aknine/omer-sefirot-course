@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ספירת העומר · עשר הספירות — קורס וידאו</title>
+<meta name="description" content="קורס וידאו מלא על ספירת העומר ועשר הספירות — 63 שיעורים מסודרים לפי שבעת השבועות.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;600;700&family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ספירת העומר — פורטל לימוד · Apple Glass · מונוכרום אפור/לבן/שחור
+   ============================================================ */
+
+/* ---- tokens ---- */
+:root{
+  /* monochrome scale */
+  --c-black:#0a0a0b; --c-ink:#1a1a1c; --c-gray-900:#2b2b2e;
+  --c-gray-700:#4a4a4f; --c-gray-500:#7c7c82; --c-gray-400:#9a9aa0;
+  --c-gray-300:#c7c7cc; --c-gray-200:#dcdce0; --c-gray-150:#e7e7ea;
+  --c-gray-100:#efeff1; --c-white:#ffffff;
+
+  /* page background */
+  --bg-base:#edecef;
+
+  /* blur tiers */
+  --blur-soft:14px; --blur-med:24px; --blur-heavy:40px; --glass-sat:185%;
+
+  /* frosted glass tints */
+  --glass-light:rgba(255,255,255,0.55);
+  --glass-medium:rgba(255,255,255,0.70);
+  --glass-strong:rgba(255,255,255,0.84);
+  --glass-dark:rgba(18,18,20,0.92);
+
+  /* edges + specular + shadows */
+  --edge:rgba(255,255,255,0.7);
+  --edge-hair:rgba(10,10,11,0.08);
+  --edge-inner:inset 0 0 0 1px rgba(255,255,255,0.5);
+  --specular:linear-gradient(180deg,rgba(255,255,255,0.85) 0%,rgba(255,255,255,0.22) 26%,transparent 56%);
+  --shadow-sm:0 4px 14px rgba(20,20,25,.10),0 1px 3px rgba(20,20,25,.06);
+  --shadow-md:0 14px 34px rgba(20,20,25,.13),0 3px 9px rgba(20,20,25,.07);
+  --shadow-lg:0 30px 64px rgba(20,20,25,.20),0 8px 18px rgba(20,20,25,.10);
+
+  /* radii + metrics */
+  --r-xl:26px; --r-lg:20px; --r-md:14px; --r-sm:10px; --r-pill:999px;
+  --header-h:66px; --sidebar-w:372px;
+  --ease:cubic-bezier(.16,1,.3,1);
+
+  --font-display:'Frank Ruhl Libre',Georgia,serif;
+  --font-body:'Heebo',-apple-system,'Segoe UI',sans-serif;
+}
+
+/* ---- reset ---- */
+*{margin:0;padding:0;box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{
+  font-family:var(--font-body);
+  background:var(--bg-base);
+  color:var(--c-ink);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+/* ambient backdrop — gives the blur something to diffuse */
+body::before{
+  content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(46% 38% at 84% 8%, rgba(255,255,255,.95), transparent 72%),
+    radial-gradient(50% 46% at 8% 92%, rgba(120,122,134,.22), transparent 74%),
+    radial-gradient(42% 40% at 62% 64%, rgba(150,152,162,.16), transparent 74%),
+    linear-gradient(162deg,#f5f5f7 0%,#e9e9ec 44%,#dededf 100%);
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,textarea{font-family:inherit}
+a{color:inherit}
+::selection{background:var(--c-ink);color:#fff}
+/* scrollbar */
+*::-webkit-scrollbar{width:10px;height:10px}
+*::-webkit-scrollbar-thumb{background:rgba(20,20,25,.18);border-radius:99px;border:3px solid transparent;background-clip:padding-box}
+*::-webkit-scrollbar-thumb:hover{background:rgba(20,20,25,.32);background-clip:padding-box}
+
+/* ---- glass utilities ---- */
+.glass,.glass-heavy,.glass-crystal{
+  position:relative;isolation:isolate;
+  -webkit-backdrop-filter:blur(var(--blur-med)) saturate(var(--glass-sat));
+  backdrop-filter:blur(var(--blur-med)) saturate(var(--glass-sat));
+}
+.glass{background:var(--glass-light);border:1px solid var(--edge);box-shadow:var(--shadow-sm),var(--edge-inner)}
+.glass-heavy{background:var(--glass-medium);border:1px solid var(--edge);box-shadow:var(--shadow-md),var(--edge-inner)}
+.glass-crystal{
+  background:var(--glass-strong);border:1px solid var(--edge);
+  -webkit-backdrop-filter:blur(var(--blur-soft)) saturate(220%);
+  backdrop-filter:blur(var(--blur-soft)) saturate(220%);
+  box-shadow:var(--shadow-sm),var(--edge-inner);
+}
+.spec::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:var(--specular);pointer-events:none;z-index:1;opacity:.8;
+}
+.spec>*{position:relative;z-index:2}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.hdr{
+  position:fixed;inset-block-start:0;inset-inline:0;height:var(--header-h);z-index:60;
+  display:flex;align-items:center;gap:18px;
+  padding-inline:20px;border-radius:0;
+  border-inline:none;border-block-start:none;
+}
+.hdr-menu{
+  display:none;width:42px;height:42px;border-radius:var(--r-sm);
+  align-items:center;justify-content:center;flex:none;
+  background:rgba(20,20,25,.05);border:1px solid var(--edge-hair);
+}
+.hdr-menu svg{width:20px;height:20px}
+.hdr-brand{display:flex;align-items:center;gap:12px;flex:none}
+.hdr-logo{
+  width:42px;height:42px;border-radius:13px;flex:none;
+  background:linear-gradient(150deg,#3a3a3e,#0c0c0d);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 12px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.22);
+}
+.hdr-logo svg{width:22px;height:22px}
+.hdr-brand-text{display:flex;flex-direction:column;line-height:1.2}
+.hdr-title{font-family:var(--font-display);font-weight:700;font-size:1.18rem;color:var(--c-black);letter-spacing:-.01em}
+.hdr-sub{font-size:.72rem;color:var(--c-gray-500);font-weight:500}
+.hdr-now{
+  flex:1;text-align:center;font-weight:600;font-size:.92rem;color:var(--c-gray-700);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;
+}
+.hdr-progress{display:flex;align-items:center;gap:10px;flex:none}
+.hdr-prog-bar{width:120px;height:7px;border-radius:99px;background:rgba(20,20,25,.1);overflow:hidden}
+.hdr-prog-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#3a3a3e,#0c0c0d);transition:width .6s var(--ease)}
+.hdr-prog-pct{font-weight:700;font-size:.86rem;color:var(--c-black);min-width:38px;text-align:center;font-variant-numeric:tabular-nums}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.layout{padding-block-start:var(--header-h);min-height:100vh}
+.main{
+  margin-inline-end:var(--sidebar-w);
+  padding:34px clamp(20px,4vw,52px) 80px;
+  min-height:calc(100vh - var(--header-h));
+}
+
+/* ---- sidebar ---- */
+.sidebar{
+  position:fixed;inset-block:var(--header-h) 0;inset-inline-end:0;
+  width:var(--sidebar-w);z-index:50;
+  display:flex;flex-direction:column;
+  border-radius:0;border-block:none;border-inline-end:none;
+  border-inline-start:1px solid var(--edge);
+  transition:transform .42s var(--ease);
+}
+.sb-top{padding:22px 22px 16px;border-block-end:1px solid var(--edge-hair);flex:none}
+.sb-prog-head{display:flex;align-items:baseline;justify-content:space-between;margin-block-end:12px}
+.sb-prog-label{font-size:.82rem;font-weight:600;color:var(--c-gray-700)}
+.sb-prog-big{font-family:var(--font-display);font-weight:700;font-size:2rem;color:var(--c-black);line-height:1;font-variant-numeric:tabular-nums}
+.sb-prog-big small{font-size:1rem;color:var(--c-gray-400);font-weight:500}
+.sb-bar{height:9px;border-radius:99px;background:rgba(20,20,25,.1);overflow:hidden}
+.sb-bar-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#48484c,#0c0c0d);transition:width .6s var(--ease)}
+.sb-prog-count{margin-block-start:9px;font-size:.78rem;color:var(--c-gray-500);font-weight:500}
+.sb-tools{padding:14px 18px;display:flex;flex-direction:column;gap:9px;flex:none}
+.sb-search{position:relative}
+.sb-search svg{position:absolute;inset-block-start:50%;inset-inline-start:13px;transform:translateY(-50%);width:16px;height:16px;color:var(--c-gray-400)}
+.sb-search input{
+  width:100%;padding:11px 38px 11px 14px;border-radius:var(--r-sm);
+  background:rgba(255,255,255,.6);border:1px solid var(--edge-hair);
+  font-size:.88rem;color:var(--c-ink);transition:.2s var(--ease);
+}
+.sb-search input:focus{outline:none;border-color:var(--c-gray-500);background:#fff;box-shadow:0 0 0 4px rgba(20,20,25,.06)}
+.sb-jump{
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  padding:9px;border-radius:var(--r-sm);font-size:.82rem;font-weight:600;
+  background:rgba(20,20,25,.05);border:1px solid var(--edge-hair);
+  color:var(--c-gray-700);transition:.2s var(--ease);
+}
+.sb-jump:hover{background:rgba(20,20,25,.09);color:var(--c-black)}
+.sb-jump svg{width:14px;height:14px}
+.sb-list{flex:1;overflow-y:auto;padding:6px 12px 26px}
+.sb-empty{display:none;text-align:center;padding:40px 20px;color:var(--c-gray-400);font-size:.86rem}
+
+/* module block */
+.mod{margin-block-end:6px}
+.mod-head{
+  width:100%;display:flex;align-items:center;gap:11px;
+  padding:13px 12px;border-radius:var(--r-md);text-align:start;
+  transition:background .2s var(--ease);
+}
+.mod-head:hover{background:rgba(20,20,25,.045)}
+.mod-num{
+  width:30px;height:30px;border-radius:9px;flex:none;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:700;font-size:.92rem;
+  background:linear-gradient(150deg,#ededf0,#dededf);
+  border:1px solid var(--edge);color:var(--c-gray-900);
+}
+.mod.done .mod-num{background:linear-gradient(150deg,#3a3a3e,#0c0c0d);color:#fff;border-color:transparent}
+.mod-meta{flex:1;min-width:0}
+.mod-title{font-weight:700;font-size:.92rem;color:var(--c-black);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mod-sub{font-size:.73rem;color:var(--c-gray-500);font-weight:500}
+.mod-count{font-size:.74rem;font-weight:700;color:var(--c-gray-500);font-variant-numeric:tabular-nums;flex:none}
+.mod-chev{width:15px;height:15px;flex:none;color:var(--c-gray-400);transition:transform .3s var(--ease)}
+.mod.open .mod-chev{transform:rotate(-180deg)}
+.mod-lessons{display:none;padding:3px 0 8px}
+.mod.open .mod-lessons{display:block}
+
+/* lesson row */
+.lrow{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 10px 9px 8px;border-radius:var(--r-sm);margin:1px 4px;
+  transition:background .16s var(--ease);
+}
+.lrow:hover{background:rgba(20,20,25,.05)}
+.lrow.active{background:rgba(20,20,25,.085)}
+.lrow.active::before{
+  content:'';position:absolute;inset-inline-start:0;inset-block:6px;
+  width:3px;border-radius:99px;background:var(--c-black);
+}
+.lrow{position:relative}
+.lchk{
+  width:23px;height:23px;border-radius:50%;flex:none;
+  border:2px solid var(--c-gray-300);background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  transition:.18s var(--ease);
+}
+.lchk svg{width:12px;height:12px;color:#fff;opacity:0;transform:scale(.5);transition:.18s var(--ease)}
+.lchk:hover{border-color:var(--c-gray-500)}
+.lrow.done .lchk{background:var(--c-black);border-color:var(--c-black)}
+.lrow.done .lchk svg{opacity:1;transform:scale(1)}
+.lbody{flex:1;min-width:0;text-align:start}
+.ltitle{font-size:.85rem;font-weight:600;color:var(--c-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lrow.done .ltitle{color:var(--c-gray-400)}
+.lorig{font-size:.7rem;color:var(--c-gray-400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;direction:ltr;text-align:start}
+.ldur{font-size:.7rem;font-weight:600;color:var(--c-gray-400);flex:none;font-variant-numeric:tabular-nums;direction:ltr}
+
+/* ============================================================
+   DASHBOARD
+   ============================================================ */
+.wrap{max-width:1080px;margin:0 auto}
+.hero{
+  border-radius:var(--r-xl);padding:0;overflow:hidden;
+  display:grid;grid-template-columns:380px 1fr;
+}
+.hero-thumb{position:relative;background:#1a1a1c;min-height:240px;overflow:hidden}
+.hero-thumb img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+.hero-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.4),transparent 60%)}
+.hero-play{
+  position:absolute;inset-block-start:50%;inset-inline-start:50%;transform:translate(50%,-50%);
+  width:74px;height:74px;border-radius:50%;z-index:3;
+  background:rgba(255,255,255,.92);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);transition:.25s var(--ease);
+}
+.hero-thumb:hover .hero-play{transform:translate(50%,-50%) scale(1.08)}
+.hero-play svg{width:28px;height:28px;color:var(--c-black);margin-inline-start:3px}
+.hero-body{padding:34px 38px;display:flex;flex-direction:column;justify-content:center}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:6px;align-self:flex-start;
+  padding:5px 12px;border-radius:99px;font-size:.72rem;font-weight:700;
+  background:rgba(20,20,25,.07);color:var(--c-gray-700);margin-block-end:13px;
+}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--c-black)}
+.hero-title{font-family:var(--font-display);font-weight:700;font-size:1.72rem;color:var(--c-black);line-height:1.25;letter-spacing:-.01em}
+.hero-orig{font-size:.82rem;color:var(--c-gray-400);direction:ltr;text-align:start;margin-block-start:5px}
+.hero-meta{font-size:.84rem;color:var(--c-gray-500);font-weight:500;margin-block-start:9px}
+.hero-cta{
+  align-self:flex-start;margin-block-start:20px;
+  display:inline-flex;align-items:center;gap:9px;
+  padding:13px 26px;border-radius:var(--r-pill);
+  background:var(--c-black);color:#fff;font-weight:700;font-size:.95rem;
+  box-shadow:0 8px 22px rgba(10,10,11,.3),inset 0 1px 0 rgba(255,255,255,.16);
+  transition:.22s var(--ease);
+}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(10,10,11,.4),inset 0 1px 0 rgba(255,255,255,.16)}
+.hero-cta svg{width:17px;height:17px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-block-start:18px}
+.stat{border-radius:var(--r-lg);padding:20px}
+.stat-val{font-family:var(--font-display);font-weight:700;font-size:2rem;color:var(--c-black);line-height:1;font-variant-numeric:tabular-nums}
+.stat-val small{font-size:1rem;color:var(--c-gray-400);font-weight:500}
+.stat-label{font-size:.8rem;color:var(--c-gray-500);font-weight:600;margin-block-start:7px}
+
+/* section heading */
+.sec-head{display:flex;align-items:baseline;gap:12px;margin:38px 0 16px}
+.sec-head h2{font-family:var(--font-display);font-weight:700;font-size:1.42rem;color:var(--c-black)}
+.sec-head span{font-size:.84rem;color:var(--c-gray-500);font-weight:500}
+
+/* module grid */
+.mod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.mcard{
+  border-radius:var(--r-lg);padding:20px 18px;text-align:start;
+  display:flex;flex-direction:column;gap:3px;transition:.24s var(--ease);
+}
+.mcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-md),var(--edge-inner)}
+.mcard-top{display:flex;align-items:center;justify-content:space-between;margin-block-end:10px}
+.mcard-badge{
+  font-size:.7rem;font-weight:700;color:var(--c-gray-500);
+  padding:4px 10px;border-radius:99px;background:rgba(20,20,25,.06);
+}
+.mcard-done{font-size:.72rem;font-weight:700;color:var(--c-gray-400);font-variant-numeric:tabular-nums}
+.mcard.full .mcard-done{color:var(--c-black)}
+.mcard-name{font-family:var(--font-display);font-weight:700;font-size:1.45rem;color:var(--c-black);line-height:1.15}
+.mcard-sub{font-size:.78rem;color:var(--c-gray-500);font-weight:500}
+.mcard-bar{height:6px;border-radius:99px;background:rgba(20,20,25,.09);overflow:hidden;margin-block-start:14px}
+.mcard-bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#48484c,#0c0c0d);transition:width .6s var(--ease)}
+
+/* intro note */
+.intro{border-radius:var(--r-lg);padding:22px 24px;margin-block-start:18px;display:flex;gap:16px;align-items:flex-start}
+.intro svg{width:22px;height:22px;flex:none;color:var(--c-gray-700);margin-block-start:2px}
+.intro p{font-size:.88rem;color:var(--c-gray-700);line-height:1.7}
+.intro b{color:var(--c-black);font-weight:700}
+
+/* ============================================================
+   PLAYER
+   ============================================================ */
+.pl-back{
+  display:inline-flex;align-items:center;gap:7px;margin-block-end:18px;
+  padding:9px 16px;border-radius:var(--r-pill);font-size:.84rem;font-weight:600;
+  color:var(--c-gray-700);transition:.2s var(--ease);
+}
+.pl-back:hover{color:var(--c-black);transform:translateX(3px)}
+.pl-back svg{width:15px;height:15px}
+.pl-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 13px;border-radius:99px;font-size:.74rem;font-weight:700;
+  background:rgba(20,20,25,.07);color:var(--c-gray-700);margin-block-end:11px;
+}
+.pl-title{font-family:var(--font-display);font-weight:700;font-size:1.6rem;color:var(--c-black);line-height:1.3;letter-spacing:-.01em}
+.pl-orig{font-size:.82rem;color:var(--c-gray-400);direction:ltr;text-align:start;margin-block-start:5px}
+.video-frame{
+  margin-block-start:18px;border-radius:var(--r-lg);overflow:hidden;
+  aspect-ratio:16/9;background:#0a0a0b;
+  box-shadow:var(--shadow-lg);border:1px solid var(--edge);
+}
+.video-frame iframe{width:100%;height:100%;border:0;display:block}
+.pl-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-block-start:16px}
+.pl-nav{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:11px 18px;border-radius:var(--r-pill);font-size:.86rem;font-weight:600;
+  background:rgba(255,255,255,.7);border:1px solid var(--edge);color:var(--c-gray-800);
+  transition:.2s var(--ease);
+}
+.pl-nav:hover:not(:disabled){background:#fff;color:var(--c-black);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.pl-nav:disabled{opacity:.35;cursor:not-allowed}
+.pl-nav svg{width:14px;height:14px}
+.pl-complete{
+  display:inline-flex;align-items:center;gap:8px;margin-inline-start:auto;
+  padding:11px 22px;border-radius:var(--r-pill);font-size:.88rem;font-weight:700;
+  background:var(--c-black);color:#fff;transition:.22s var(--ease);
+  box-shadow:0 6px 18px rgba(10,10,11,.26),inset 0 1px 0 rgba(255,255,255,.16);
+}
+.pl-complete:hover{transform:translateY(-2px)}
+.pl-complete svg{width:16px;height:16px}
+.pl-complete.is-done{background:rgba(255,255,255,.7);border:1px solid var(--edge);color:var(--c-gray-700);box-shadow:var(--shadow-sm)}
+.pl-yt{
+  display:inline-flex;align-items:center;gap:7px;margin-block-start:14px;
+  font-size:.8rem;font-weight:600;color:var(--c-gray-500);text-decoration:none;
+}
+.pl-yt:hover{color:var(--c-black)}
+.pl-yt svg{width:15px;height:15px}
+
+/* notes */
+.notes{margin-block-start:22px;border-radius:var(--r-lg);padding:20px 22px}
+.notes-head{display:flex;align-items:center;gap:9px;margin-block-end:12px}
+.notes-head svg{width:17px;height:17px;color:var(--c-gray-700)}
+.notes-head h3{font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--c-black)}
+.notes-head .saved{margin-inline-start:auto;font-size:.74rem;color:var(--c-gray-400);font-weight:600;opacity:0;transition:opacity .3s}
+.notes-head .saved.show{opacity:1}
+.notes textarea{
+  width:100%;min-height:130px;resize:vertical;
+  padding:14px 16px;border-radius:var(--r-md);
+  background:rgba(255,255,255,.6);border:1px solid var(--edge-hair);
+  font-size:.9rem;color:var(--c-ink);line-height:1.7;
+}
+.notes textarea:focus{outline:none;border-color:var(--c-gray-500);background:#fff;box-shadow:0 0 0 4px rgba(20,20,25,.06)}
+
+/* ---- scrim (mobile) ---- */
+.scrim{
+  position:fixed;inset:0;z-index:45;background:rgba(15,15,18,.4);
+  -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+  opacity:0;visibility:hidden;transition:.3s var(--ease);
+}
+.scrim.show{opacity:1;visibility:visible}
+
+/* ============================================================
+   AFFILIATE · תוכנית השותפים
+   ============================================================ */
+.sb-foot{padding:12px 16px;border-block-start:1px solid var(--edge-hair);flex:none}
+.sb-amb{
+  width:100%;display:flex;align-items:center;gap:11px;
+  padding:12px 14px;border-radius:var(--r-md);text-align:start;
+  background:linear-gradient(150deg,#2f2f33,#0c0c0d);color:#fff;
+  box-shadow:0 7px 18px rgba(10,10,11,.26),inset 0 1px 0 rgba(255,255,255,.14);
+  transition:transform .22s var(--ease);
+}
+.sb-amb:hover{transform:translateY(-2px)}
+.sb-amb-ic{width:20px;height:20px;flex:none}
+.sb-amb-t{flex:1;min-width:0;line-height:1.3}
+.sb-amb-t b{display:block;font-size:.88rem;font-weight:700}
+.sb-amb-t span{font-size:.71rem;opacity:.72;font-weight:500}
+.sb-amb-go{width:15px;height:15px;flex:none;opacity:.6}
+
+.aff-promo{
+  margin-block-start:16px;border-radius:var(--r-lg);width:100%;text-align:start;
+  padding:20px 22px;display:flex;align-items:center;gap:17px;
+  cursor:pointer;transition:.24s var(--ease);
+}
+.aff-promo:hover{transform:translateY(-3px);box-shadow:var(--shadow-md),var(--edge-inner)}
+.aff-promo-ic{
+  width:52px;height:52px;border-radius:15px;flex:none;
+  background:linear-gradient(150deg,#3a3a3e,#0c0c0d);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 15px rgba(10,10,11,.26),inset 0 1px 0 rgba(255,255,255,.16);
+}
+.aff-promo-ic svg{width:25px;height:25px;color:#fff}
+.aff-promo-b{flex:1;min-width:0}
+.aff-promo-b h3{font-family:var(--font-display);font-weight:700;font-size:1.12rem;color:var(--c-black)}
+.aff-promo-b p{font-size:.85rem;color:var(--c-gray-700);font-weight:500}
+.aff-promo-arrow{width:20px;height:20px;flex:none;color:var(--c-gray-400)}
+
+.aff-hero{border-radius:var(--r-xl);padding:38px 40px;text-align:center}
+.aff-hero-badge{
+  display:inline-block;padding:5px 14px;border-radius:99px;
+  font-size:.74rem;font-weight:700;background:rgba(20,20,25,.07);
+  color:var(--c-gray-700);margin-block-end:14px;
+}
+.aff-hero h1{font-family:var(--font-display);font-weight:700;font-size:2.1rem;color:var(--c-black);line-height:1.25}
+.aff-hero h1 span{color:var(--c-gray-500)}
+.aff-hero-lead{font-size:.98rem;color:var(--c-gray-700);font-weight:500;margin-block-start:10px;max-width:540px;margin-inline:auto}
+.aff-hero-fine{font-size:.82rem;color:var(--c-gray-500);margin-block-start:14px;line-height:1.7;max-width:560px;margin-inline:auto}
+.aff-referred{
+  margin-block-start:16px;display:inline-block;padding:9px 18px;border-radius:99px;
+  background:rgba(20,20,25,.06);font-size:.82rem;font-weight:600;color:var(--c-gray-900);
+}
+
+.aff-link-card{border-radius:var(--r-lg);padding:26px 28px;margin-block-start:16px}
+.aff-link-card h3{font-family:var(--font-display);font-weight:700;font-size:1.18rem;color:var(--c-black)}
+.aff-link-card>p{font-size:.86rem;color:var(--c-gray-700);margin-block:6px 16px}
+.aff-link-row{display:flex;gap:9px;flex-wrap:wrap}
+.aff-link-row input{
+  flex:1;min-width:210px;padding:13px 16px;border-radius:var(--r-md);
+  background:rgba(255,255,255,.7);border:1px solid var(--edge-hair);
+  font-size:.84rem;color:var(--c-gray-700);direction:ltr;text-align:start;
+}
+.aff-link-row input:focus{outline:none;border-color:var(--c-gray-500);background:#fff}
+.aff-copy{
+  padding:13px 22px;border-radius:var(--r-md);font-size:.88rem;font-weight:700;
+  background:var(--c-black);color:#fff;flex:none;transition:.2s var(--ease);
+  box-shadow:0 5px 14px rgba(10,10,11,.24),inset 0 1px 0 rgba(255,255,255,.16);
+}
+.aff-copy:hover{transform:translateY(-2px)}
+.aff-copy.ok{background:#1f7a3d}
+.aff-share-row{margin-block-start:10px}
+.aff-wa{
+  width:100%;display:flex;align-items:center;justify-content:center;gap:9px;
+  padding:14px;border-radius:var(--r-md);font-size:.92rem;font-weight:700;
+  background:rgba(255,255,255,.72);border:1px solid var(--edge);color:var(--c-black);
+  transition:.2s var(--ease);
+}
+.aff-wa:hover{background:#fff;transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.aff-wa svg{width:20px;height:20px}
+.aff-stat{
+  margin-block-start:18px;padding-block-start:16px;border-block-start:1px solid var(--edge-hair);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.aff-stat span{font-size:.85rem;color:var(--c-gray-700);font-weight:600}
+.aff-stat b{font-family:var(--font-display);font-weight:700;font-size:1.6rem;color:var(--c-black);font-variant-numeric:tabular-nums}
+
+.aff-h2{font-family:var(--font-display);font-weight:700;font-size:1.4rem;color:var(--c-black);margin:34px 0 16px}
+.aff-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.aff-step{border-radius:var(--r-lg);padding:22px 18px}
+.aff-step-n{
+  width:34px;height:34px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:700;font-size:1.05rem;
+  background:linear-gradient(150deg,#3a3a3e,#0c0c0d);color:#fff;
+  margin-block-end:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.16);
+}
+.aff-step h4{font-weight:700;font-size:.95rem;color:var(--c-black);margin-block-end:5px}
+.aff-step p{font-size:.82rem;color:var(--c-gray-700);line-height:1.6}
+.aff-note{border-radius:var(--r-lg);padding:20px 22px;margin-block-start:16px;display:flex;gap:14px;align-items:flex-start}
+.aff-note svg{width:20px;height:20px;flex:none;color:var(--c-gray-700);margin-block-start:2px}
+.aff-note p{font-size:.84rem;color:var(--c-gray-700);line-height:1.7}
+.aff-note b{color:var(--c-black);font-weight:700}
+@media(max-width:1180px){.aff-steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){
+  .aff-steps{grid-template-columns:1fr}
+  .aff-hero{padding:28px 20px}
+  .aff-hero h1{font-size:1.55rem}
+  .aff-link-card{padding:20px}
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:1180px){
+  .hero{grid-template-columns:300px 1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .mod-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:900px){
+  :root{--sidebar-w:340px}
+  .hdr-menu{display:flex}
+  .hdr-now{display:none}
+  .main{margin-inline-end:0}
+  .sidebar{transform:translateX(100%);box-shadow:var(--shadow-lg)}
+  .sidebar.open{transform:translateX(0)}
+  .hero{grid-template-columns:1fr}
+  .hero-thumb{min-height:200px;aspect-ratio:16/9}
+  .hero-play{transform:translate(50%,-50%) scale(.85)}
+}
+@media(max-width:560px){
+  .hdr{gap:10px;padding-inline:14px}
+  .hdr-prog-bar{width:64px}
+  .hdr-sub{display:none}
+  .main{padding:22px 16px 70px}
+  .hero-body{padding:24px 22px}
+  .hero-title{font-size:1.4rem}
+  .stats{grid-template-columns:repeat(2,1fr);gap:10px}
+  .mod-grid{grid-template-columns:1fr}
+  .pl-title{font-size:1.3rem}
+  .pl-complete{margin-inline-start:0;width:100%;justify-content:center}
+}
+
+/* accessibility fallbacks */
+@media(prefers-reduced-transparency:reduce){
+  .glass,.glass-heavy,.glass-crystal{
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+    background:rgba(255,255,255,.97);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+.fade{animation:fade .4s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="hdr glass-crystal">
+  <button class="hdr-menu" id="menuBtn" aria-label="פתח תפריט">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+  <div class="hdr-brand">
+    <div class="hdr-logo" aria-hidden="true">
+      <svg viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="6" r="3.1" fill="#fff"/>
+        <circle cx="8.5" cy="16" r="3.1" fill="#fff" opacity=".75"/>
+        <circle cx="23.5" cy="16" r="3.1" fill="#fff" opacity=".75"/>
+        <circle cx="16" cy="26" r="3.1" fill="#fff" opacity=".55"/>
+        <path d="M16 6L8.5 16L16 26L23.5 16Z" stroke="#fff" stroke-width="1.2" opacity=".4"/>
+      </svg>
+    </div>
+    <div class="hdr-brand-text">
+      <span class="hdr-title">ספירת העומר</span>
+      <span class="hdr-sub">עשר הספירות · קורס וידאו</span>
+    </div>
+  </div>
+  <div class="hdr-now" id="hdrNow">קורס מלא · 63 שיעורים</div>
+  <div class="hdr-progress">
+    <div class="hdr-prog-bar"><div class="hdr-prog-fill" id="hdrProgFill"></div></div>
+    <span class="hdr-prog-pct" id="hdrProgPct">0%</span>
+  </div>
+</header>
+
+<div class="layout">
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar glass" id="sidebar" role="navigation" aria-label="תוכן הקורס">
+    <div class="sb-top">
+      <div class="sb-prog-head">
+        <span class="sb-prog-label">ההתקדמות שלך</span>
+        <span class="sb-prog-big"><span id="sbPct">0</span><small>%</small></span>
+      </div>
+      <div class="sb-bar"><div class="sb-bar-fill" id="sbBarFill"></div></div>
+      <div class="sb-prog-count"><span id="sbCount">0</span> מתוך 63 שיעורים הושלמו</div>
+    </div>
+    <div class="sb-tools">
+      <div class="sb-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="search" type="text" placeholder="חיפוש שיעור..." aria-label="חיפוש שיעור">
+      </div>
+      <button class="sb-jump" id="jumpBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        קפיצה לשיעור הנוכחי
+      </button>
+    </div>
+    <nav class="sb-list" id="sbList"></nav>
+    <div class="sb-empty" id="sbEmpty">לא נמצאו שיעורים שתואמים את החיפוש.</div>
+    <div class="sb-foot">
+      <button class="sb-amb" id="ambBtn">
+        <svg class="sb-amb-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <span class="sb-amb-t"><b>תוכנית השותפים</b><span>קיבלת טוב? תחזיר טוב 🤍</span></span>
+        <svg class="sb-amb-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <main class="main" id="main">
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="wrap">
+      <div class="hero glass-heavy spec" id="hero">
+        <div class="hero-thumb" id="heroThumb">
+          <img id="heroImg" src="" alt="" loading="lazy">
+          <div class="hero-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="hero-body">
+          <span class="hero-tag" id="heroTag">השיעור הבא שלך</span>
+          <h2 class="hero-title" id="heroTitle">טוען...</h2>
+          <div class="hero-orig" id="heroOrig"></div>
+          <div class="hero-meta" id="heroMeta"></div>
+          <button class="hero-cta" id="heroCta">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <span id="heroCtaText">המשך ללמוד</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat glass spec"><div class="stat-val"><span id="stDone">0</span><small>/63</small></div><div class="stat-label">שיעורים שהושלמו</div></div>
+        <div class="stat glass spec"><div class="stat-val"><span id="stPct">0</span><small>%</small></div><div class="stat-label">אחוז התקדמות</div></div>
+        <div class="stat glass spec"><div class="stat-val"><span id="stMods">0</span><small>/8</small></div><div class="stat-label">מודולים שהושלמו</div></div>
+        <div class="stat glass spec"><div class="stat-val" id="stLeft">63</div><div class="stat-label">שיעורים שנותרו</div></div>
+      </div>
+
+      <div class="sec-head">
+        <h2>מסלול הקורס</h2>
+        <span>שיעורי יסוד · ושבעת שבועות הספירה</span>
+      </div>
+      <div class="mod-grid" id="modGrid"></div>
+
+      <div class="intro glass spec">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <p>קורס וידאו מלא של <b>63 שיעורים</b> על עשר הספירות וספירת העומר. מתחילים בארבעה־עשר שיעורי יסוד, וממשיכים אל <b>שבעת שבועות הספירה</b> — שיעור לכל אחד מארבעים ותשעה ימי העומר. ההתקדמות וההערות נשמרות אוטומטית במכשיר שלך. <b>אין צורך בהרשמה.</b></p>
+      </div>
+
+      <button class="aff-promo glass-heavy spec" id="affPromo">
+        <span class="aff-promo-ic">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </span>
+        <span class="aff-promo-b">
+          <h3>קיבלת טוב? תחזיר טוב 🤍</h3>
+          <p>שתפו את הפורטל עם חברים והצטרפו לתוכנית השותפים שלנו</p>
+        </span>
+        <svg class="aff-promo-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+    </section>
+
+    <!-- PLAYER -->
+    <section id="player" class="wrap" hidden>
+      <button class="pl-back" id="backBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        חזרה לדף הבית
+      </button>
+      <span class="pl-tag" id="plTag"></span>
+      <h1 class="pl-title" id="plTitle"></h1>
+      <div class="pl-orig" id="plOrig"></div>
+      <div class="video-frame" id="videoFrame"></div>
+      <a class="pl-yt" id="plYt" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.7 2.7 0 0 0-1.9-1.9C18 4.8 12 4.8 12 4.8s-6 0-7.7.5A2.7 2.7 0 0 0 2.4 7.2 28 28 0 0 0 2 12a28 28 0 0 0 .4 4.8 2.7 2.7 0 0 0 1.9 1.9c1.7.5 7.7.5 7.7.5s6 0 7.7-.5a2.7 2.7 0 0 0 1.9-1.9A28 28 0 0 0 22 12a28 28 0 0 0-.4-4.8zM10 15V9l5 3z"/></svg>
+        פתח את השיעור ביוטיוב
+      </a>
+      <div class="pl-bar">
+        <button class="pl-nav" id="prevBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          השיעור הקודם
+        </button>
+        <button class="pl-nav" id="nextBtn">
+          השיעור הבא
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="pl-complete" id="completeBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          <span id="completeTxt">סמן כהושלם</span>
+        </button>
+      </div>
+
+      <div class="notes glass spec">
+        <div class="notes-head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+          <h3>ההערות שלי</h3>
+          <span class="saved" id="notesSaved">נשמר ✓</span>
+        </div>
+        <textarea id="notesArea" placeholder="כתוב כאן הערות, תובנות ושאלות מהשיעור... ההערות נשמרות אוטומטית."></textarea>
+      </div>
+    </section>
+
+    <!-- AFFILIATE / תוכנית השותפים -->
+    <section id="affiliate" class="wrap" hidden>
+      <button class="pl-back" id="affBack">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        חזרה לדף הבית
+      </button>
+
+      <div class="aff-hero glass-heavy spec">
+        <span class="aff-hero-badge">תוכנית השותפים</span>
+        <h1>קיבלת טוב? <span>תחזיר טוב</span> 🤍</h1>
+        <p class="aff-hero-lead">עזרו לנו להפיץ את התוכן הזה ולהפוך את העולם למקום קצת יותר טוב 🙏</p>
+        <p class="aff-hero-fine">תוכנית השותפים אינה מבוססת על עמלות או תגמול כספי — הפרס האמיתי הוא הזכות לעשות מעשה טוב ולהעביר את הידע והכלים האלו לעוד אנשים.</p>
+        <div class="aff-referred" id="affReferred" hidden>🤍 הגעת לפורטל דרך הזמנה של חבר — תודה שהצטרפת!</div>
+      </div>
+
+      <div class="aff-link-card glass spec">
+        <h3>🔗 הקישור האישי שלך</h3>
+        <p>העתיקו את הקישור, שלחו לחברים, ובואו נפיץ את הטוב הזה ביחד.</p>
+        <div class="aff-link-row">
+          <input type="text" id="affLink" readonly aria-label="הקישור האישי שלך">
+          <button class="aff-copy" id="affCopy">העתק קישור</button>
+        </div>
+        <div class="aff-share-row">
+          <button class="aff-wa" id="affWa">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+            שיתוף בוואטסאפ
+          </button>
+        </div>
+        <div class="aff-stat">
+          <span>פעמים ששיתפת את הפורטל</span>
+          <b id="affShares">0</b>
+        </div>
+      </div>
+
+      <h2 class="aff-h2">איך זה עובד?</h2>
+      <div class="aff-steps">
+        <div class="aff-step glass spec">
+          <div class="aff-step-n">1</div>
+          <h4>הקישור האישי שלך</h4>
+          <p>לכל משתתף יש קישור אישי וייחודי לפורטל הקורס.</p>
+        </div>
+        <div class="aff-step glass spec">
+          <div class="aff-step-n">2</div>
+          <h4>מפיצים — במילים שלכם</h4>
+          <p>שלחו את הקישור לחברים, למשפחה ולקבוצות שלכם.</p>
+        </div>
+        <div class="aff-step glass spec">
+          <div class="aff-step-n">3</div>
+          <h4>אנשים טובים מצטרפים</h4>
+          <p>כל מי שייכנס דרך הקישור יוכל ללמוד מ-63 השיעורים, בחינם.</p>
+        </div>
+        <div class="aff-step glass spec">
+          <div class="aff-step-n">4</div>
+          <h4>מפיצים את הטוב</h4>
+          <p>ככל שתשתפו יותר, כך עוד אנשים ייהנו מהתוכן הזה.</p>
+        </div>
+      </div>
+
+      <div class="aff-note glass spec">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <p><b>שקיפות:</b> הקישור האישי פעיל ומוכן לשיתוף כבר עכשיו, וכל מי שמגיע דרכו נרשם אצלך במכשיר. הפורטל עצמאי לחלוטין ושומר נתונים על המכשיר בלבד — לכן <b>מעקב חי אחר מספר הנרשמים ולוח מובילים חודשי</b> (כמו בפורטל בית המטפלים) ידרשו חיבור למערכת מרכזית. אפשר להוסיף זאת בהמשך.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+<div class="scrim" id="scrim"></div>
+
+<script>
+/* ============================================================
+   נתונים — 63 שיעורים מתוך פלייליסט היוטיוב
+   ============================================================ */
+const SEF = ['חסד','גבורה','תפארת','נצח','הוד','יסוד','מלכות'];
+
+/* מודול 1 — שיעורי יסוד (סרטונים 1-14) [id, כותרת מנוקה, משך] */
+const MOD1 = [
+  ['dMfaq69DRDE','שיעור 1 · חזרה לעשר הספירות','24:03'],
+  ['tGRL44Z0jp4','שיעור 2 · מבנה עשר הספירות ומהותן בחיינו','23:15'],
+  ['KwH6HuMvJw4','שיעור 3 · חזרה ועלייה אל עשר הספירות','23:15'],
+  ['Synf7_Ieu-o','שיעור 4 · ספירת כתר','23:28'],
+  ['HGaJYQyp7RI','שיעור 5 · ספירת חכמה','22:55'],
+  ['k9nFpa9B0cY','שיעור 6 · ספירת בינה','26:14'],
+  ['yygJYRRv6N4','שיעור 7 · ספירת חסד','30:07'],
+  ['Isv_ZcdCfOM','שיעור 8 · ספירת גבורה','21:59'],
+  ['Xybqu93dYW8','שיעור 9 · ספירת תפארת','32:32'],
+  ['tOUEwCX8pUQ','שיעור 10 · ספירת נצח','25:23'],
+  ['HroLwJTCsPc','שיעור 11 · ספירת הוד','28:23'],
+  ['EiWD2XIwHJs','שיעור 12 · ספירת יסוד','27:52'],
+  ['lGEkX83LWkY','שיעור 13 · ספירת מלכות','32:04'],
+  ['5QksMFaXEw0','שיעור 14 · סוד סודות המלכות','19:20'],
+];
+
+/* מודולים 2-8 — 49 ימי הספירה (סרטונים 15-63) [id, כותרת מקור, משך] */
+const OMER = [
+  ['6O-ePI8ub9Y','ספירה הווה חסד','19:20'],
+  ['APpxHPhb_io','Counting the heroism of grace','19:35'],
+  ['ACZ2sGKUr3o','The count of glory in grace','14:32'],
+  ['4YRPXY4e8qE','ספירה הווה חסד','17:37'],
+  ['HdM4aAkV3TE','ספירה הווה חסד','16:53'],
+  ['DsHC-P9adws','The foundation of grace','18:40'],
+  ['h8UYLf_9w6s','Counting the Kingdom of Grace','19:20'],
+  ['-BuLdePUrSA','Counting the kindness of bravery','19:40'],
+  ['hrfFtLx-pQA','Counting the bravery of bravery','19:51'],
+  ['bgAkriJprLI','Counting the Glory of Heroism','19:47'],
+  ['eywfd5TiCNo','ספירה הווה גבורה','23:10'],
+  ['5xdjioWiVr8','ספירה הווה גבורה','25:53'],
+  ['Xmmh1-c8qYk','ספירה בינה גבורה','23:49'],
+  ['LakFjWXoeMI','Counting the kingdoms of Gevura','22:12'],
+  ['LsPrzSeUFZ0','Counting the grace of God in the heavens','34:07'],
+  ['UMtwEWDJsec','ספירה תיפרת גבורה','16:15'],
+  ['gsOyrbyooVg','ספירה תיפרת גבורה','22:19'],
+  ['QWSAVCxSyfM','ספירה הוד גבורה','11:39'],
+  ['zxqF0Zs21PE','ספירה הוד גבורה','12:11'],
+  ['CZVlNCsy_9s','ספירה יסוד גבורה','15:10'],
+  ['ykZ6CJxjj_c','Counting the Glory of the Most High','15:14'],
+  ['Hn6Al5vOrpc','ספירה הוד חסד','17:12'],
+  ['PL2grgAVSwI','ספירה מלכות חסד','17:39'],
+  ['Y3tNZJ9euo0','ספירה בינה חסד','21:38'],
+  ['uDFSdtZmoPk','ספירה הוד חסד','24:10'],
+  ['ArxnF4QX1sE','ספירה הוד חסד','21:31'],
+  ['COVDW0z68nA','ספירה יסוד חסד','17:09'],
+  ['V_O1TYBm_e8','ספירה מלכות חסד','15:19'],
+  ['Btgrjb0VOZg','ספירה הוד חסד','16:38'],
+  ['nPNVZ3CcnlE','ספירה מלכות חסד','18:48'],
+  ['Zs_itDmOX8I','ספירה מלכות חסד','19:30'],
+  ['EStmARWWdfA','ספירה הוד חסד','20:05'],
+  ['IjBF9A7KS-s','ספירה הוד חסד (חלק שני)','28:50'],
+  ['gnT78g_Yp3g','ספירה יסוד חסד','19:56'],
+  ['R2_jmQzGe40','ספירה בינה חסד','15:17'],
+  ['9uMIkoMS68s','ספירה הוד','26:17'],
+  ['seoFoB3Fn3s','A story of underlying heroism','24:42'],
+  ['Ez1bi6YWBRc','The foundation of the glory count','16:58'],
+  ['FJDf_ZbONlI','Counting eternity at the foundation','17:41'],
+  ['kfJ9X8TA8Vc','ספירה הוד','20:21'],
+  ['bY5BJ2Wev_I','Counting the basic elements','18:26'],
+  ['EIO9bKIc0l8','Counting the kingdoms at the base','11:31'],
+  ['8p_9zSIkahE','Counting the grace of the kingdom','17:16'],
+  ['hEmWT1Ri1r0','Counting the bravery of the kingdoms','14:47'],
+  ['jjnWXx5OgUg','Counting the Glory of the Kingdom','12:50'],
+  ['ONyhc75gXPU','The Sefirah of Netzach in Malchut','8:28'],
+  ['SuTDnkgHt8M','The Sephira of Hod within Malchut','12:44'],
+  ['3Q7FTRCalKM','Yesod of Malkhut','12:25'],
+  ['smVlfFHib5g','סיום ספירת העומר','19:46'],
+];
+
+/* בניית מבנה הקורס */
+const COURSE = [{
+  id:'m1', title:'יסודות · עשר הספירות', subtitle:'14 שיעורי בסיס',
+  lessons: MOD1.map(r=>({id:r[0],title:r[1],orig:'',dur:r[2]}))
+}];
+for(let w=0; w<7; w++){
+  const slice = OMER.slice(w*7, w*7+7);
+  COURSE.push({
+    id:'m'+(w+2),
+    title:'שבוע '+(w+1)+' · '+SEF[w],
+    subtitle:'ימים '+(w*7+1)+'–'+(w*7+7),
+    sefira:SEF[w],
+    lessons: slice.map((r,i)=>{
+      const day=w*7+i+1;
+      return {id:r[0], title:'יום '+day+' · '+SEF[i]+' שב'+SEF[w], orig:r[1], dur:r[2], day:day};
+    })
+  });
+}
+
+/* מערך שטוח לניווט */
+const FLAT=[];
+COURSE.forEach((m,mi)=>m.lessons.forEach((l,li)=>{
+  FLAT.push(Object.assign({},l,{modIndex:mi,modTitle:m.title,flat:FLAT.length}));
+}));
+const BYID={}; FLAT.forEach(l=>BYID[l.id]=l);
+
+/* ============================================================
+   מצב + אחסון מקומי
+   ============================================================ */
+const LS={done:'omer_completed',last:'omer_last',note:id=>'omer_note_'+id};
+let completed=new Set();
+let currentId=null;
+
+function lsGet(k,d){try{const v=localStorage.getItem(k);return v==null?d:v}catch(e){return d}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+
+function loadProgress(){
+  try{const a=JSON.parse(lsGet(LS.done,'[]'));if(Array.isArray(a))completed=new Set(a.filter(id=>BYID[id]));}catch(e){}
+}
+function saveProgress(){lsSet(LS.done,JSON.stringify([...completed]));}
+
+/* ============================================================
+   עזרי תצוגה
+   ============================================================ */
+const $=s=>document.querySelector(s);
+function thumb(id){return 'https://img.youtube.com/vi/'+id+'/hqdefault.jpg';}
+function embed(id){return 'https://www.youtube.com/embed/'+id+'?rel=0&modestbranding=1&playsinline=1&autoplay=1';}
+function durMin(s){const p=s.split(':').map(Number);return p.length===3?p[0]*60+p[1]+p[2]/60:p[0]+p[1]/60;}
+function modDone(m){return m.lessons.every(l=>completed.has(l.id));}
+function modCount(m){return m.lessons.filter(l=>completed.has(l.id)).length;}
+
+/* ============================================================
+   סיידבר
+   ============================================================ */
+function renderSidebar(){
+  const list=$('#sbList'); list.innerHTML='';
+  COURSE.forEach((m,mi)=>{
+    const cnt=modCount(m), done=cnt===m.lessons.length;
+    const mod=document.createElement('div');
+    mod.className='mod'+(done?' done':'');
+    mod.dataset.mod=mi;
+    mod.innerHTML=
+      '<button class="mod-head" data-toggle="'+mi+'">'+
+        '<span class="mod-num">'+(mi+1)+'</span>'+
+        '<span class="mod-meta"><span class="mod-title">'+m.title+'</span>'+
+        '<span class="mod-sub">'+m.subtitle+'</span></span>'+
+        '<span class="mod-count">'+cnt+'/'+m.lessons.length+'</span>'+
+        '<svg class="mod-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'+
+      '</button><div class="mod-lessons" data-lessons="'+mi+'"></div>';
+    const box=mod.querySelector('.mod-lessons');
+    m.lessons.forEach((l,li)=>{
+      const isDone=completed.has(l.id);
+      const row=document.createElement('div');
+      row.className='lrow'+(isDone?' done':'')+(l.id===currentId?' active':'');
+      row.dataset.id=l.id;
+      row.innerHTML=
+        '<button class="lchk" data-chk="'+l.id+'" aria-label="סמן כהושלם">'+
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>'+
+        '</button>'+
+        '<button class="lbody" data-open="'+l.id+'">'+
+          '<div class="ltitle">'+l.title+'</div>'+
+          (l.orig?'<div class="lorig">'+esc(l.orig)+'</div>':'')+
+        '</button>'+
+        '<span class="ldur">'+l.dur+'</span>';
+      box.appendChild(row);
+    });
+    list.appendChild(mod);
+  });
+}
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+function openModule(mi,scroll){
+  const mod=$('.mod[data-mod="'+mi+'"]'); if(!mod)return;
+  mod.classList.add('open');
+  if(scroll)mod.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ============================================================
+   דשבורד
+   ============================================================ */
+function nextUnwatched(){
+  return FLAT.find(l=>!completed.has(l.id)) || FLAT[FLAT.length-1];
+}
+function renderDashboard(){
+  const last=lsGet(LS.last,null);
+  let target = (last&&BYID[last]&&!completed.has(last)) ? BYID[last] : nextUnwatched();
+  const allDone=completed.size===FLAT.length;
+  if(allDone) target=BYID[last]||FLAT[0];
+
+  const img=$('#heroImg');
+  img.src=thumb(target.id);
+  img.onerror=()=>{img.style.display='none';};
+  img.style.display='';
+  $('#heroTag').textContent = allDone?'סיימת את הקורס · כל הכבוד':(completed.size?'המשך מהמקום שעצרת':'התחל את הקורס');
+  $('#heroTitle').textContent=target.title;
+  $('#heroOrig').textContent=target.orig||'';
+  $('#heroMeta').textContent=target.modTitle+'  ·  '+target.dur+' דקות';
+  $('#heroCtaText').textContent = allDone?'צפה שוב':(completed.size?'המשך ללמוד':'התחל ללמוד');
+  $('#hero').onclick=()=>selectLesson(target.id);
+  $('#heroCta').onclick=e=>{e.stopPropagation();selectLesson(target.id);};
+
+  const done=completed.size, pct=Math.round(done/FLAT.length*100);
+  const mods=COURSE.filter(modDone).length;
+  $('#stDone').textContent=done;
+  $('#stPct').textContent=pct;
+  $('#stMods').textContent=mods;
+  $('#stLeft').textContent=FLAT.length-done;
+
+  const grid=$('#modGrid'); grid.innerHTML='';
+  COURSE.forEach((m,mi)=>{
+    const cnt=modCount(m), full=cnt===m.lessons.length;
+    const card=document.createElement('button');
+    card.className='mcard glass spec'+(full?' full':'');
+    card.innerHTML=
+      '<div class="mcard-top">'+
+        '<span class="mcard-badge">'+(mi===0?'יסודות':'שבוע '+mi)+'</span>'+
+        '<span class="mcard-done">'+cnt+'/'+m.lessons.length+(full?' ✓':'')+'</span>'+
+      '</div>'+
+      '<div class="mcard-name">'+(mi===0?'עשר הספירות':m.sefira)+'</div>'+
+      '<div class="mcard-sub">'+m.subtitle+'</div>'+
+      '<div class="mcard-bar"><i style="width:'+(cnt/m.lessons.length*100)+'%"></i></div>';
+    card.onclick=()=>{
+      const firstUndone=m.lessons.find(l=>!completed.has(l.id))||m.lessons[0];
+      selectLesson(firstUndone.id);
+    };
+    grid.appendChild(card);
+  });
+}
+
+/* ============================================================
+   נגן השיעור
+   ============================================================ */
+function selectLesson(id){
+  const l=BYID[id]; if(!l)return;
+  currentId=id;
+  lsSet(LS.last,id);
+
+  $('#dashboard').hidden=true;
+  $('#affiliate').hidden=true;
+  const pl=$('#player');
+  pl.hidden=false;
+  pl.classList.remove('fade'); void pl.offsetWidth; pl.classList.add('fade');
+
+  $('#plTag').textContent=l.modTitle;
+  $('#plTitle').textContent=l.title;
+  $('#plOrig').textContent=l.orig||'';
+  $('#plOrig').style.display=l.orig?'':'none';
+  $('#videoFrame').innerHTML='<iframe src="'+embed(id)+'" title="'+esc(l.title)+'" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>';
+  $('#plYt').href='https://youtu.be/'+id;
+
+  const fi=FLAT.indexOf(l);
+  $('#prevBtn').disabled=fi<=0;
+  $('#nextBtn').disabled=fi>=FLAT.length-1;
+
+  syncCompleteBtn();
+  loadNote(id);
+
+  renderSidebar();
+  openModule(l.modIndex,false);
+  setTimeout(()=>{
+    const row=$('.lrow[data-id="'+id+'"]');
+    if(row)row.scrollIntoView({behavior:'smooth',block:'center'});
+  },60);
+
+  $('#hdrNow').textContent=l.title;
+  window.scrollTo({top:0,behavior:'smooth'});
+  closeSidebar();
+  if(location.hash!=='#v='+id) history.replaceState(null,'','#v='+id);
+}
+
+function syncCompleteBtn(){
+  const isDone=completed.has(currentId);
+  const btn=$('#completeBtn');
+  btn.classList.toggle('is-done',isDone);
+  $('#completeTxt').textContent=isDone?'הושלם ✓ · בטל סימון':'סמן כהושלם';
+}
+
+function toggleComplete(id){
+  if(completed.has(id))completed.delete(id);
+  else completed.add(id);
+  saveProgress();
+  updateProgressUI();
+  renderSidebar();
+  if(currentId)openModule(BYID[currentId].modIndex,false);
+  if(id===currentId)syncCompleteBtn();
+}
+
+function step(dir){
+  const fi=FLAT.indexOf(BYID[currentId]);
+  const ni=fi+dir;
+  if(ni>=0&&ni<FLAT.length)selectLesson(FLAT[ni].id);
+}
+
+/* ============================================================
+   התקדמות
+   ============================================================ */
+function updateProgressUI(){
+  const done=completed.size, pct=Math.round(done/FLAT.length*100);
+  $('#hdrProgFill').style.width=pct+'%';
+  $('#hdrProgPct').textContent=pct+'%';
+  $('#sbPct').textContent=pct;
+  $('#sbBarFill').style.width=pct+'%';
+  $('#sbCount').textContent=done;
+  if(!$('#dashboard').hidden)renderDashboard();
+}
+
+/* ============================================================
+   הערות
+   ============================================================ */
+let noteTimer=null;
+function loadNote(id){$('#notesArea').value=lsGet(LS.note(id),'');}
+function saveNote(){
+  if(!currentId)return;
+  lsSet(LS.note(currentId),$('#notesArea').value);
+  const s=$('#notesSaved'); s.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer=setTimeout(()=>s.classList.remove('show'),1600);
+}
+
+/* ============================================================
+   חיפוש
+   ============================================================ */
+function filterLessons(q){
+  q=q.trim().toLowerCase();
+  let any=false;
+  document.querySelectorAll('.mod').forEach(mod=>{
+    let hit=0;
+    mod.querySelectorAll('.lrow').forEach(row=>{
+      const l=BYID[row.dataset.id];
+      const m=!q||l.title.toLowerCase().includes(q)||(l.orig&&l.orig.toLowerCase().includes(q));
+      row.style.display=m?'':'none';
+      if(m)hit++;
+    });
+    mod.style.display=hit?'':'none';
+    if(hit){any=true; if(q)mod.classList.add('open');}
+  });
+  $('#sbEmpty').style.display=any?'none':'block';
+}
+
+/* ============================================================
+   ניווט בסיידבר (מובייל)
+   ============================================================ */
+function openSidebar(){$('#sidebar').classList.add('open');$('#scrim').classList.add('show');}
+function closeSidebar(){$('#sidebar').classList.remove('open');$('#scrim').classList.remove('show');}
+
+/* ============================================================
+   תוכנית השותפים (אפיליאציה)
+   ============================================================ */
+const REF={code:'omer_ref_code',shares:'omer_ref_shares',by:'omer_referred_by'};
+
+function genCode(){
+  const a='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';
+  for(let i=0;i<8;i++)s+=a[Math.floor(Math.random()*a.length)];
+  return s;
+}
+function myRefCode(){
+  let c=lsGet(REF.code,null);
+  if(!c||!/^[A-Z0-9]{6,12}$/.test(c)){c=genCode();lsSet(REF.code,c);}
+  return c;
+}
+function refLink(){
+  return location.origin+location.pathname+'?ref='+myRefCode();
+}
+function captureRef(){
+  try{
+    const r=new URLSearchParams(location.search).get('ref');
+    if(r&&/^[A-Z0-9]{6,12}$/.test(r)&&r!==myRefCode())
+      lsSet(REF.by,JSON.stringify({code:r,at:Date.now()}));
+  }catch(e){}
+}
+function referredBy(){
+  try{
+    const raw=lsGet(REF.by,null);if(!raw)return null;
+    const p=JSON.parse(raw);
+    if(Date.now()-p.at>30*24*3600*1000)return null;   /* תוקף 30 יום */
+    return p.code||null;
+  }catch(e){return null;}
+}
+function bumpShares(){
+  const n=(parseInt(lsGet(REF.shares,'0'),10)||0)+1;
+  lsSet(REF.shares,String(n));
+  const el=$('#affShares');if(el)el.textContent=n;
+}
+function shareWhatsApp(){
+  const msg='קיבלתי משהו טוב ואני רוצה לחלוק אותו איתך 🤍\n\n'+
+    'קורס וידאו שלם ומסודר על ספירת העומר ועשר הספירות — 63 שיעורים, בחינם, בלי הרשמה.\n\n'+
+    'אפשר להצטרף דרך הקישור שלי:\n'+refLink();
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank','noopener');
+  bumpShares();
+}
+function copyRefLink(){
+  const inp=$('#affLink'),btn=$('#affCopy');
+  const done=()=>{
+    btn.textContent='הקישור הועתק ✓';btn.classList.add('ok');bumpShares();
+    setTimeout(()=>{btn.textContent='העתק קישור';btn.classList.remove('ok');},2000);
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(inp.value).then(done).catch(()=>{inp.select();try{document.execCommand('copy');done();}catch(e){}});
+  else{inp.select();try{document.execCommand('copy');done();}catch(e){}}
+}
+function showAffiliate(){
+  $('#dashboard').hidden=true;$('#player').hidden=true;
+  const a=$('#affiliate');a.hidden=false;
+  a.classList.remove('fade');void a.offsetWidth;a.classList.add('fade');
+  $('#affLink').value=refLink();
+  $('#affShares').textContent=parseInt(lsGet(REF.shares,'0'),10)||0;
+  $('#affReferred').hidden=!referredBy();
+  $('#hdrNow').textContent='תוכנית השותפים';
+  closeSidebar();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ============================================================
+   אתחול
+   ============================================================ */
+function init(){
+  loadProgress();
+  captureRef();
+  renderSidebar();
+  updateProgressUI();
+  renderDashboard();
+
+  /* total length */
+  const totMin=FLAT.reduce((s,l)=>s+durMin(l.dur),0);
+  $('#hdrNow').textContent='קורס מלא · 63 שיעורים · כ-'+Math.round(totMin/60)+' שעות';
+
+  /* sidebar events (delegation) */
+  $('#sbList').addEventListener('click',e=>{
+    const tog=e.target.closest('[data-toggle]');
+    if(tog){$('.mod[data-mod="'+tog.dataset.toggle+'"]').classList.toggle('open');return;}
+    const chk=e.target.closest('[data-chk]');
+    if(chk){toggleComplete(chk.dataset.chk);return;}
+    const op=e.target.closest('[data-open]');
+    if(op){selectLesson(op.dataset.open);return;}
+  });
+
+  $('#search').addEventListener('input',e=>filterLessons(e.target.value));
+  $('#jumpBtn').addEventListener('click',()=>{
+    if(currentId){openModule(BYID[currentId].modIndex,true);
+      const row=$('.lrow[data-id="'+currentId+'"]');
+      if(row)row.scrollIntoView({behavior:'smooth',block:'center'});
+    }else openModule(0,true);
+  });
+
+  $('#backBtn').addEventListener('click',()=>{
+    $('#player').hidden=true;
+    const d=$('#dashboard'); d.hidden=false;
+    d.classList.remove('fade'); void d.offsetWidth; d.classList.add('fade');
+    renderDashboard();
+    $('#hdrNow').textContent='קורס מלא · 63 שיעורים';
+    history.replaceState(null,'','#');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+  $('#prevBtn').addEventListener('click',()=>step(-1));
+  $('#nextBtn').addEventListener('click',()=>step(1));
+  $('#completeBtn').addEventListener('click',()=>toggleComplete(currentId));
+  $('#notesArea').addEventListener('input',saveNote);
+
+  $('#menuBtn').addEventListener('click',()=>{
+    $('#sidebar').classList.contains('open')?closeSidebar():openSidebar();
+  });
+  $('#scrim').addEventListener('click',closeSidebar);
+
+  /* תוכנית השותפים */
+  $('#ambBtn').addEventListener('click',showAffiliate);
+  $('#affPromo').addEventListener('click',showAffiliate);
+  $('#affCopy').addEventListener('click',copyRefLink);
+  $('#affWa').addEventListener('click',shareWhatsApp);
+  $('#affBack').addEventListener('click',()=>{
+    $('#affiliate').hidden=true;
+    const d=$('#dashboard'); d.hidden=false;
+    d.classList.remove('fade'); void d.offsetWidth; d.classList.add('fade');
+    renderDashboard();
+    $('#hdrNow').textContent='קורס מלא · 63 שיעורים';
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  /* deep link */
+  const h=location.hash.match(/^#v=([\w-]{6,})$/);
+  if(h&&BYID[h[1]])selectLesson(h[1]);
+  else openModule(0,false);
+
+  document.addEventListener('keydown',e=>{
+    if(e.target.tagName==='TEXTAREA'||e.target.tagName==='INPUT')return;
+    if($('#player').hidden)return;
+    if(e.key==='ArrowLeft')step(1);      /* RTL: שמאלה = קדימה/הבא */
+    if(e.key==='ArrowRight')step(-1);    /* RTL: ימינה = אחורה/הקודם */
+  });
+}
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
