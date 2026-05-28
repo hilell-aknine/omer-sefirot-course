@@ -1,0 +1,13 @@
+# Scroll-scrub experiment leftovers (feature reverted — kept locally only)
+wheat_field.mp4
+wheat_field*.mp4
+wheat_field*.meta.json
+gen_frames.py
+assets/bg-frames/
+assets/bg-frames-wheat-backup/
+
+# temp / test artifacts
+_shots/
+_fs/
+_fs2/
+_*.py

@@ -3,8 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ספירת העומר · עשר הספירות — קורס וידאו</title>
+<title>סודות עשר הספירות — קורס וידאו</title>
 <meta name="description" content="קורס וידאו מלא על ספירת העומר ועשר הספירות — 63 שיעורים מסודרים לפי שבעת השבועות.">
+<script>
+/* set theme before first paint — prevents FOUC */
+(function(){try{var t=localStorage.getItem('omer_theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;600;700&family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -20,6 +24,14 @@
   --c-gray-700:#4a4a4f; --c-gray-500:#7c7c82; --c-gray-400:#9a9aa0;
   --c-gray-300:#c7c7cc; --c-gray-200:#dcdce0; --c-gray-150:#e7e7ea;
   --c-gray-100:#efeff1; --c-white:#ffffff;
+
+  /* "ink tint" RGB triplet — dark tints on light surfaces. Flips light in dark mode. */
+  --ink:20,20,25;
+
+  /* accent fills (buttons/badges/progress) — dark on light. Flip to light on dark. */
+  --accent:#0a0a0b;
+  --accent-a:#3a3a3e; --accent-b:#0c0c0d;
+  --accent-fg:#ffffff;
 
   /* page background */
   --bg-base:#edecef;
@@ -38,9 +50,9 @@
   --edge-hair:rgba(10,10,11,0.08);
   --edge-inner:inset 0 0 0 1px rgba(255,255,255,0.5);
   --specular:linear-gradient(180deg,rgba(255,255,255,0.85) 0%,rgba(255,255,255,0.22) 26%,transparent 56%);
-  --shadow-sm:0 4px 14px rgba(20,20,25,.10),0 1px 3px rgba(20,20,25,.06);
-  --shadow-md:0 14px 34px rgba(20,20,25,.13),0 3px 9px rgba(20,20,25,.07);
-  --shadow-lg:0 30px 64px rgba(20,20,25,.20),0 8px 18px rgba(20,20,25,.10);
+  --shadow-sm:0 4px 14px rgba(var(--ink),.10),0 1px 3px rgba(var(--ink),.06);
+  --shadow-md:0 14px 34px rgba(var(--ink),.13),0 3px 9px rgba(var(--ink),.07);
+  --shadow-lg:0 30px 64px rgba(var(--ink),.20),0 8px 18px rgba(var(--ink),.10);
 
   /* radii + metrics */
   --r-xl:26px; --r-lg:20px; --r-md:14px; --r-sm:10px; --r-pill:999px;
@@ -49,7 +61,80 @@
 
   --font-display:'Frank Ruhl Libre',Georgia,serif;
   --font-body:'Heebo',-apple-system,'Segoe UI',sans-serif;
+
+  color-scheme:light;
 }
+
+/* ============================================================
+   DARK THEME — token override (Apple-glass, dark)
+   ============================================================ */
+:root[data-theme="dark"]{
+  --c-black:#f4f4f6; --c-ink:#e2e2e7; --c-gray-900:#cccdd4;
+  --c-gray-700:#a6a7b0; --c-gray-500:#8a8b94; --c-gray-400:#6c6d76;
+  --c-gray-300:#4a4b54; --c-gray-200:#3a3b43; --c-gray-150:#30313a;
+  --c-gray-100:#282932; --c-white:#ffffff;
+
+  /* ink tint flips light so dark-on-light surfaces become light-on-dark */
+  --ink:235,236,242;
+
+  --bg-base:#121214;
+
+  --glass-light:rgba(44,45,52,0.55);
+  --glass-medium:rgba(44,45,52,0.68);
+  --glass-strong:rgba(30,31,37,0.82);
+  --glass-dark:rgba(8,8,10,0.92);
+
+  --edge:rgba(255,255,255,0.10);
+  --edge-hair:rgba(255,255,255,0.08);
+  --edge-inner:inset 0 0 0 1px rgba(255,255,255,0.05);
+  --specular:linear-gradient(180deg,rgba(255,255,255,0.10) 0%,rgba(255,255,255,0.03) 26%,transparent 56%);
+  --shadow-sm:0 4px 14px rgba(0,0,0,.42),0 1px 3px rgba(0,0,0,.3);
+  --shadow-md:0 14px 34px rgba(0,0,0,.5),0 3px 9px rgba(0,0,0,.36);
+  --shadow-lg:0 30px 64px rgba(0,0,0,.62),0 8px 18px rgba(0,0,0,.42);
+
+  /* accent fills flip light → dark text */
+  --accent:#eef0f4;
+  --accent-a:#ffffff; --accent-b:#c9ccd6;
+  --accent-fg:#15161a;
+
+  color-scheme:dark;
+}
+:root[data-theme="dark"] body::before{
+  background:
+    radial-gradient(46% 38% at 84% 8%, rgba(70,72,84,.45), transparent 72%),
+    radial-gradient(50% 46% at 8% 92%, rgba(40,42,52,.5), transparent 74%),
+    radial-gradient(42% 40% at 62% 64%, rgba(30,31,40,.4), transparent 74%),
+    linear-gradient(162deg,#17171b 0%,#121214 44%,#0d0d10 100%);
+}
+:root[data-theme="dark"] ::selection{background:var(--c-gray-700);color:#fff}
+/* soft input/button surfaces flip from white-on-light to light-on-dark */
+:root[data-theme="dark"] .sb-search input,
+:root[data-theme="dark"] .notes textarea,
+:root[data-theme="dark"] .aff-link-row input{background:rgba(255,255,255,.06)}
+:root[data-theme="dark"] .sb-search input:focus,
+:root[data-theme="dark"] .notes textarea:focus,
+:root[data-theme="dark"] .aff-link-row input:focus{background:rgba(255,255,255,.11)}
+:root[data-theme="dark"] .pl-nav,
+:root[data-theme="dark"] .pl-complete.is-done,
+:root[data-theme="dark"] .aff-wa{background:rgba(255,255,255,.07)}
+:root[data-theme="dark"] .pl-nav:hover:not(:disabled),
+:root[data-theme="dark"] .aff-wa:hover{background:rgba(255,255,255,.14);color:var(--c-black)}
+:root[data-theme="dark"] .sb-login{background:rgba(255,255,255,.05)}
+:root[data-theme="dark"] .sb-login:hover{background:rgba(255,255,255,.1)}
+:root[data-theme="dark"] .lchk{background:rgba(255,255,255,.08)}
+
+/* theme toggle button */
+.theme-toggle{
+  width:42px;height:42px;border-radius:var(--r-sm);flex:none;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(var(--ink),.05);border:1px solid var(--edge-hair);color:var(--c-gray-700);
+  transition:background .2s var(--ease),color .2s var(--ease);
+}
+.theme-toggle:hover{background:rgba(var(--ink),.1);color:var(--c-black)}
+.theme-toggle svg{width:20px;height:20px}
+.theme-toggle .icon-sun{display:none}
+:root[data-theme="dark"] .theme-toggle .icon-sun{display:block}
+:root[data-theme="dark"] .theme-toggle .icon-moon{display:none}
 
 /* ---- reset ---- */
 *{margin:0;padding:0;box-sizing:border-box}
@@ -81,8 +166,8 @@ a{color:inherit}
 ::selection{background:var(--c-ink);color:#fff}
 /* scrollbar */
 *::-webkit-scrollbar{width:10px;height:10px}
-*::-webkit-scrollbar-thumb{background:rgba(20,20,25,.18);border-radius:99px;border:3px solid transparent;background-clip:padding-box}
-*::-webkit-scrollbar-thumb:hover{background:rgba(20,20,25,.32);background-clip:padding-box}
+*::-webkit-scrollbar-thumb{background:rgba(var(--ink),.18);border-radius:99px;border:3px solid transparent;background-clip:padding-box}
+*::-webkit-scrollbar-thumb:hover{background:rgba(var(--ink),.32);background-clip:padding-box}
 
 /* ---- glass utilities ---- */
 .glass,.glass-heavy,.glass-crystal{
@@ -116,13 +201,13 @@ a{color:inherit}
 .hdr-menu{
   display:none;width:42px;height:42px;border-radius:var(--r-sm);
   align-items:center;justify-content:center;flex:none;
-  background:rgba(20,20,25,.05);border:1px solid var(--edge-hair);
+  background:rgba(var(--ink),.05);border:1px solid var(--edge-hair);
 }
 .hdr-menu svg{width:20px;height:20px}
 .hdr-brand{display:flex;align-items:center;gap:12px;flex:none}
 .hdr-logo{
   width:42px;height:42px;border-radius:13px;flex:none;
-  background:linear-gradient(150deg,#3a3a3e,#0c0c0d);
+  background:linear-gradient(150deg,var(--accent-a),var(--accent-b));
   display:flex;align-items:center;justify-content:center;
   box-shadow:0 4px 12px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.22);
 }
@@ -135,8 +220,8 @@ a{color:inherit}
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;
 }
 .hdr-progress{display:flex;align-items:center;gap:10px;flex:none;margin-inline-start:auto}
-.hdr-prog-bar{width:120px;height:7px;border-radius:99px;background:rgba(20,20,25,.1);overflow:hidden}
-.hdr-prog-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#3a3a3e,#0c0c0d);transition:width .6s var(--ease)}
+.hdr-prog-bar{width:120px;height:7px;border-radius:99px;background:rgba(var(--ink),.1);overflow:hidden}
+.hdr-prog-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));transition:width .6s var(--ease)}
 .hdr-prog-pct{font-weight:700;font-size:.86rem;color:var(--c-black);min-width:38px;text-align:center;font-variant-numeric:tabular-nums}
 
 /* ============================================================
@@ -163,8 +248,8 @@ a{color:inherit}
 .sb-prog-label{font-size:.82rem;font-weight:600;color:var(--c-gray-700)}
 .sb-prog-big{font-family:var(--font-display);font-weight:700;font-size:2rem;color:var(--c-black);line-height:1;font-variant-numeric:tabular-nums}
 .sb-prog-big small{font-size:1rem;color:var(--c-gray-400);font-weight:500}
-.sb-bar{height:9px;border-radius:99px;background:rgba(20,20,25,.1);overflow:hidden}
-.sb-bar-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#48484c,#0c0c0d);transition:width .6s var(--ease)}
+.sb-bar{height:9px;border-radius:99px;background:rgba(var(--ink),.1);overflow:hidden}
+.sb-bar-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));transition:width .6s var(--ease)}
 .sb-prog-count{margin-block-start:9px;font-size:.78rem;color:var(--c-gray-500);font-weight:500}
 .sb-tools{padding:14px 18px;display:flex;flex-direction:column;gap:9px;flex:none}
 .sb-search{position:relative}
@@ -174,14 +259,14 @@ a{color:inherit}
   background:rgba(255,255,255,.6);border:1px solid var(--edge-hair);
   font-size:.88rem;color:var(--c-ink);transition:.2s var(--ease);
 }
-.sb-search input:focus{outline:none;border-color:var(--c-gray-500);background:#fff;box-shadow:0 0 0 4px rgba(20,20,25,.06)}
+.sb-search input:focus{outline:none;border-color:var(--c-gray-500);background:#fff;box-shadow:0 0 0 4px rgba(var(--ink),.06)}
 .sb-jump{
   display:flex;align-items:center;justify-content:center;gap:7px;
   padding:9px;border-radius:var(--r-sm);font-size:.82rem;font-weight:600;
-  background:rgba(20,20,25,.05);border:1px solid var(--edge-hair);
+  background:rgba(var(--ink),.05);border:1px solid var(--edge-hair);
   color:var(--c-gray-700);transition:.2s var(--ease);
 }
-.sb-jump:hover{background:rgba(20,20,25,.09);color:var(--c-black)}
+.sb-jump:hover{background:rgba(var(--ink),.09);color:var(--c-black)}
 .sb-jump svg{width:14px;height:14px}
 .sb-list{flex:1;overflow-y:auto;padding:6px 12px 26px}
 .sb-empty{display:none;text-align:center;padding:40px 20px;color:var(--c-gray-400);font-size:.86rem}
@@ -193,7 +278,7 @@ a{color:inherit}
   padding:13px 12px;border-radius:var(--r-md);text-align:start;
   transition:background .2s var(--ease);
 }
-.mod-head:hover{background:rgba(20,20,25,.045)}
+.mod-head:hover{background:rgba(var(--ink),.045)}
 .mod-num{
   width:30px;height:30px;border-radius:9px;flex:none;
   display:flex;align-items:center;justify-content:center;
@@ -201,7 +286,7 @@ a{color:inherit}
   background:linear-gradient(150deg,#ededf0,#dededf);
   border:1px solid var(--edge);color:var(--c-gray-900);
 }
-.mod.done .mod-num{background:linear-gradient(150deg,#3a3a3e,#0c0c0d);color:#fff;border-color:transparent}
+.mod.done .mod-num{background:linear-gradient(150deg,var(--accent-a),var(--accent-b));color:var(--accent-fg);border-color:transparent}
 .mod-meta{flex:1;min-width:0}
 .mod-title{font-weight:700;font-size:.92rem;color:var(--c-black);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mod-sub{font-size:.73rem;color:var(--c-gray-500);font-weight:500}
@@ -217,8 +302,8 @@ a{color:inherit}
   padding:9px 10px 9px 8px;border-radius:var(--r-sm);margin:1px 4px;
   transition:background .16s var(--ease);
 }
-.lrow:hover{background:rgba(20,20,25,.05)}
-.lrow.active{background:rgba(20,20,25,.085)}
+.lrow:hover{background:rgba(var(--ink),.05)}
+.lrow.active{background:rgba(var(--ink),.085)}
 .lrow.active::before{
   content:'';position:absolute;inset-inline-start:0;inset-block:6px;
   width:3px;border-radius:99px;background:var(--c-black);
@@ -230,9 +315,9 @@ a{color:inherit}
   display:flex;align-items:center;justify-content:center;
   transition:.18s var(--ease);
 }
-.lchk svg{width:12px;height:12px;color:#fff;opacity:0;transform:scale(.5);transition:.18s var(--ease)}
+.lchk svg{width:12px;height:12px;color:var(--accent-fg);opacity:0;transform:scale(.5);transition:.18s var(--ease)}
 .lchk:hover{border-color:var(--c-gray-500)}
-.lrow.done .lchk{background:var(--c-black);border-color:var(--c-black)}
+.lrow.done .lchk{background:var(--accent);border-color:var(--accent)}
 .lrow.done .lchk svg{opacity:1;transform:scale(1)}
 .lbody{flex:1;min-width:0;text-align:start}
 .ltitle{font-size:.85rem;font-weight:600;color:var(--c-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -264,7 +349,7 @@ a{color:inherit}
 .hero-tag{
   display:inline-flex;align-items:center;gap:6px;align-self:flex-start;
   padding:5px 12px;border-radius:99px;font-size:.72rem;font-weight:700;
-  background:rgba(20,20,25,.07);color:var(--c-gray-700);margin-block-end:13px;
+  background:rgba(var(--ink),.07);color:var(--c-gray-700);margin-block-end:13px;
 }
 .hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--c-black)}
 .hero-title{font-family:var(--font-display);font-weight:700;font-size:1.72rem;color:var(--c-black);line-height:1.25;letter-spacing:-.01em}
@@ -274,7 +359,7 @@ a{color:inherit}
   align-self:flex-start;margin-block-start:20px;
   display:inline-flex;align-items:center;gap:9px;
   padding:13px 26px;border-radius:var(--r-pill);
-  background:var(--c-black);color:#fff;font-weight:700;font-size:.95rem;
+  background:var(--accent);color:var(--accent-fg);font-weight:700;font-size:.95rem;
   box-shadow:0 8px 22px rgba(10,10,11,.3),inset 0 1px 0 rgba(255,255,255,.16);
   transition:.22s var(--ease);
 }
@@ -303,14 +388,14 @@ a{color:inherit}
 .mcard-top{display:flex;align-items:center;justify-content:space-between;margin-block-end:10px}
 .mcard-badge{
   font-size:.7rem;font-weight:700;color:var(--c-gray-500);
-  padding:4px 10px;border-radius:99px;background:rgba(20,20,25,.06);
+  padding:4px 10px;border-radius:99px;background:rgba(var(--ink),.06);
 }
 .mcard-done{font-size:.72rem;font-weight:700;color:var(--c-gray-400);font-variant-numeric:tabular-nums}
 .mcard.full .mcard-done{color:var(--c-black)}
 .mcard-name{font-family:var(--font-display);font-weight:700;font-size:1.45rem;color:var(--c-black);line-height:1.15}
 .mcard-sub{font-size:.78rem;color:var(--c-gray-500);font-weight:500}
-.mcard-bar{height:6px;border-radius:99px;background:rgba(20,20,25,.09);overflow:hidden;margin-block-start:14px}
-.mcard-bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#48484c,#0c0c0d);transition:width .6s var(--ease)}
+.mcard-bar{height:6px;border-radius:99px;background:rgba(var(--ink),.09);overflow:hidden;margin-block-start:14px}
+.mcard-bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));transition:width .6s var(--ease)}
 
 /* intro note */
 .intro{border-radius:var(--r-lg);padding:22px 24px;margin-block-start:18px;display:flex;gap:16px;align-items:flex-start}
@@ -331,7 +416,7 @@ a{color:inherit}
 .pl-tag{
   display:inline-flex;align-items:center;gap:6px;
   padding:5px 13px;border-radius:99px;font-size:.74rem;font-weight:700;
-  background:rgba(20,20,25,.07);color:var(--c-gray-700);margin-block-end:11px;
+  background:rgba(var(--ink),.07);color:var(--c-gray-700);margin-block-end:11px;
 }
 .pl-title{font-family:var(--font-display);font-weight:700;font-size:1.6rem;color:var(--c-black);line-height:1.3;letter-spacing:-.01em}
 .pl-orig{font-size:.82rem;color:var(--c-gray-400);direction:ltr;text-align:start;margin-block-start:5px}
@@ -354,18 +439,12 @@ a{color:inherit}
 .pl-complete{
   display:inline-flex;align-items:center;gap:8px;margin-inline-start:auto;
   padding:11px 22px;border-radius:var(--r-pill);font-size:.88rem;font-weight:700;
-  background:var(--c-black);color:#fff;transition:.22s var(--ease);
+  background:var(--accent);color:var(--accent-fg);transition:.22s var(--ease);
   box-shadow:0 6px 18px rgba(10,10,11,.26),inset 0 1px 0 rgba(255,255,255,.16);
 }
 .pl-complete:hover{transform:translateY(-2px)}
 .pl-complete svg{width:16px;height:16px}
 .pl-complete.is-done{background:rgba(255,255,255,.7);border:1px solid var(--edge);color:var(--c-gray-700);box-shadow:var(--shadow-sm)}
-.pl-yt{
-  display:inline-flex;align-items:center;gap:7px;margin-block-start:14px;
-  font-size:.8rem;font-weight:600;color:var(--c-gray-500);text-decoration:none;
-}
-.pl-yt:hover{color:var(--c-black)}
-.pl-yt svg{width:15px;height:15px}
 
 /* notes */
 .notes{margin-block-start:22px;border-radius:var(--r-lg);padding:20px 22px}
@@ -380,7 +459,7 @@ a{color:inherit}
   background:rgba(255,255,255,.6);border:1px solid var(--edge-hair);
   font-size:.9rem;color:var(--c-ink);line-height:1.7;
 }
-.notes textarea:focus{outline:none;border-color:var(--c-gray-500);background:#fff;box-shadow:0 0 0 4px rgba(20,20,25,.06)}
+.notes textarea:focus{outline:none;border-color:var(--c-gray-500);background:#fff;box-shadow:0 0 0 4px rgba(var(--ink),.06)}
 
 /* ---- scrim (mobile) ---- */
 .scrim{
@@ -397,7 +476,7 @@ a{color:inherit}
 .sb-amb{
   width:100%;display:flex;align-items:center;gap:11px;
   padding:12px 14px;border-radius:var(--r-md);text-align:start;
-  background:linear-gradient(150deg,#2f2f33,#0c0c0d);color:#fff;
+  background:linear-gradient(150deg,var(--accent-a),var(--accent-b));color:var(--accent-fg);
   box-shadow:0 7px 18px rgba(10,10,11,.26),inset 0 1px 0 rgba(255,255,255,.14);
   transition:transform .22s var(--ease);
 }
@@ -416,11 +495,11 @@ a{color:inherit}
 .aff-promo:hover{transform:translateY(-3px);box-shadow:var(--shadow-md),var(--edge-inner)}
 .aff-promo-ic{
   width:52px;height:52px;border-radius:15px;flex:none;
-  background:linear-gradient(150deg,#3a3a3e,#0c0c0d);
+  background:linear-gradient(150deg,var(--accent-a),var(--accent-b));
   display:flex;align-items:center;justify-content:center;
   box-shadow:0 6px 15px rgba(10,10,11,.26),inset 0 1px 0 rgba(255,255,255,.16);
 }
-.aff-promo-ic svg{width:25px;height:25px;color:#fff}
+.aff-promo-ic svg{width:25px;height:25px;color:var(--accent-fg)}
 .aff-promo-b{flex:1;min-width:0}
 .aff-promo-b h3{font-family:var(--font-display);font-weight:700;font-size:1.12rem;color:var(--c-black)}
 .aff-promo-b p{font-size:.85rem;color:var(--c-gray-700);font-weight:500}
@@ -429,7 +508,7 @@ a{color:inherit}
 .aff-hero{border-radius:var(--r-xl);padding:38px 40px;text-align:center}
 .aff-hero-badge{
   display:inline-block;padding:5px 14px;border-radius:99px;
-  font-size:.74rem;font-weight:700;background:rgba(20,20,25,.07);
+  font-size:.74rem;font-weight:700;background:rgba(var(--ink),.07);
   color:var(--c-gray-700);margin-block-end:14px;
 }
 .aff-hero h1{font-family:var(--font-display);font-weight:700;font-size:2.1rem;color:var(--c-black);line-height:1.25}
@@ -438,7 +517,7 @@ a{color:inherit}
 .aff-hero-fine{font-size:.82rem;color:var(--c-gray-500);margin-block-start:14px;line-height:1.7;max-width:560px;margin-inline:auto}
 .aff-referred{
   margin-block-start:16px;display:inline-block;padding:9px 18px;border-radius:99px;
-  background:rgba(20,20,25,.06);font-size:.82rem;font-weight:600;color:var(--c-gray-900);
+  background:rgba(var(--ink),.06);font-size:.82rem;font-weight:600;color:var(--c-gray-900);
 }
 
 .aff-link-card{border-radius:var(--r-lg);padding:26px 28px;margin-block-start:16px}
@@ -453,7 +532,7 @@ a{color:inherit}
 .aff-link-row input:focus{outline:none;border-color:var(--c-gray-500);background:#fff}
 .aff-copy{
   padding:13px 22px;border-radius:var(--r-md);font-size:.88rem;font-weight:700;
-  background:var(--c-black);color:#fff;flex:none;transition:.2s var(--ease);
+  background:var(--accent);color:var(--accent-fg);flex:none;transition:.2s var(--ease);
   box-shadow:0 5px 14px rgba(10,10,11,.24),inset 0 1px 0 rgba(255,255,255,.16);
 }
 .aff-copy:hover{transform:translateY(-2px)}
@@ -481,7 +560,7 @@ a{color:inherit}
   width:34px;height:34px;border-radius:11px;
   display:flex;align-items:center;justify-content:center;
   font-family:var(--font-display);font-weight:700;font-size:1.05rem;
-  background:linear-gradient(150deg,#3a3a3e,#0c0c0d);color:#fff;
+  background:linear-gradient(150deg,var(--accent-a),var(--accent-b));color:var(--accent-fg);
   margin-block-end:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.16);
 }
 .aff-step h4{font-weight:700;font-size:.95rem;color:var(--c-black);margin-block-end:5px}
@@ -521,15 +600,19 @@ a{color:inherit}
   .hdr-menu{display:flex}
   .main{margin-inline-start:0}
   /* הסיידבר ממוקם בקצה הימני (inset-inline-start ב-RTL) — לכן off-canvas ימינה */
-  .sidebar{transform:translateX(100%);box-shadow:-14px 0 50px rgba(20,20,25,.26);width:min(340px,87vw)}
+  .sidebar{transform:translateX(100%);box-shadow:-14px 0 50px rgba(var(--ink),.26);width:min(340px,87vw)}
   .sidebar.open{transform:translateX(0)}
   .hero{grid-template-columns:1fr}
   .hero-thumb{min-height:200px;aspect-ratio:16/9}
   .hero-play{transform:translate(50%,-50%) scale(.85)}
 }
 @media(max-width:560px){
-  .hdr{gap:10px;padding-inline:14px}
-  .hdr-prog-bar{width:64px}
+  .hdr{gap:9px;padding-inline:13px}
+  /* brand becomes the flexible element so menu+progress+toggle always fit */
+  .hdr-brand{flex:1;min-width:0}
+  .hdr-title{font-size:1.04rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hdr-menu,.theme-toggle{width:38px;height:38px}
+  .hdr-prog-bar{width:50px}
   .hdr-sub{display:none}
   .main{padding:22px 16px calc(96px + env(safe-area-inset-bottom))}
   .hero-body{padding:22px 20px}
@@ -557,6 +640,112 @@ a{color:inherit}
 }
 .fade{animation:fade .4s var(--ease)}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ===================== Share-to-story popup ===================== */
+.ss-overlay{
+  position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:rgba(15,15,18,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility .3s var(--ease);
+}
+.ss-overlay.show{opacity:1;visibility:visible}
+.ss-card{
+  width:100%;max-width:380px;max-height:88vh;overflow-y:auto;border-radius:var(--r-xl);padding:30px 26px 22px;text-align:center;
+  transform:translateY(14px) scale(.97);transition:transform .35s var(--ease);
+}
+.ss-overlay.show .ss-card{transform:none}
+.ss-emoji{font-size:2.6rem;line-height:1;margin-block-end:14px}
+.ss-title{font-family:var(--font-display);font-weight:700;font-size:1.4rem;color:var(--c-black);margin:0 0 8px}
+.ss-text{font-size:.94rem;color:var(--c-gray-600);line-height:1.55;margin:0 0 22px}
+.ss-actions{display:flex;flex-direction:column;gap:10px}
+.ss-share{
+  display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border:none;cursor:pointer;
+  border-radius:var(--r-lg);font-family:var(--font-body);font-weight:700;font-size:1rem;color:var(--accent-fg);
+  background:linear-gradient(135deg,var(--accent-a),var(--accent-b));box-shadow:var(--shadow-md);transition:transform .2s var(--ease);
+}
+.ss-share:hover{transform:translateY(-2px)}
+.ss-share svg{width:18px;height:18px}
+.ss-later{
+  padding:10px;border:none;background:none;cursor:pointer;
+  font-family:var(--font-body);font-size:.88rem;color:var(--c-gray-500);font-weight:500;
+}
+.ss-later:hover{color:var(--c-gray-700)}
+
+/* ---- sidebar login entry ---- */
+.sb-login{
+  display:flex;align-items:center;gap:9px;margin-block-start:14px;padding:10px 12px;
+  border-radius:var(--r-md);border:1px solid var(--edge-hair);background:rgba(255,255,255,.4);
+  color:var(--c-gray-700);text-decoration:none;font-size:.8rem;font-weight:600;line-height:1.3;
+  transition:background .2s var(--ease),transform .2s var(--ease);
+}
+.sb-login:hover{background:rgba(255,255,255,.72);transform:translateY(-1px)}
+.sb-login svg{width:17px;height:17px;flex:none;color:var(--c-gray-500)}
+
+/* ---- sidebar feedback button ---- */
+.sb-feedback{
+  display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-block-start:10px;padding:10px;
+  border-radius:var(--r-md);border:1px solid var(--edge-hair);background:rgba(var(--ink),.04);
+  color:var(--c-gray-600);font-family:var(--font-body);font-size:.82rem;font-weight:600;
+  transition:background .2s var(--ease),color .2s var(--ease);
+}
+.sb-feedback:hover{background:rgba(var(--ink),.08);color:var(--c-black)}
+.sb-feedback svg{width:16px;height:16px;flex:none}
+
+/* ---- feedback modal ---- */
+.fb-overlay{
+  position:fixed;inset:0;z-index:82;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:rgba(15,15,18,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility .3s var(--ease);
+}
+.fb-overlay.show{opacity:1;visibility:visible}
+.fb-card{
+  position:relative;width:100%;max-width:420px;max-height:88vh;overflow-y:auto;border-radius:var(--r-xl);padding:30px 26px 24px;text-align:center;
+  transform:translateY(14px) scale(.97);transition:transform .35s var(--ease);
+}
+.fb-overlay.show .fb-card{transform:none}
+.fb-x{
+  position:absolute;inset-block-start:14px;inset-inline-end:16px;width:30px;height:30px;border-radius:50%;
+  font-size:1.3rem;line-height:1;color:var(--c-gray-500);background:rgba(var(--ink),.05);
+}
+.fb-x:hover{background:rgba(var(--ink),.1);color:var(--c-black)}
+.fb-title{font-family:var(--font-display);font-weight:700;font-size:1.4rem;color:var(--c-black);margin:0 0 6px}
+.fb-sub{font-size:.9rem;color:var(--c-gray-600);line-height:1.5;margin:0 0 18px}
+.fb-input,.fb-textarea{
+  width:100%;padding:12px 14px;border:1px solid var(--edge-hair);border-radius:var(--r-md);margin-block-end:12px;
+  font-family:var(--font-body);font-size:.92rem;color:var(--c-ink);background:rgba(255,255,255,.6);
+  transition:border-color .2s var(--ease),background .2s var(--ease);
+}
+.fb-textarea{resize:vertical;min-height:96px;line-height:1.6}
+.fb-input:focus,.fb-textarea:focus{outline:none;border-color:var(--c-gray-500);background:rgba(255,255,255,.85)}
+:root[data-theme="dark"] .fb-input,
+:root[data-theme="dark"] .fb-textarea{background:rgba(255,255,255,.06)}
+:root[data-theme="dark"] .fb-input:focus,
+:root[data-theme="dark"] .fb-textarea:focus{background:rgba(255,255,255,.11)}
+.fb-send{
+  width:100%;padding:13px;border:none;border-radius:var(--r-lg);cursor:pointer;
+  font-family:var(--font-body);font-weight:700;font-size:1rem;color:var(--accent-fg);
+  background:linear-gradient(135deg,var(--accent-a),var(--accent-b));box-shadow:var(--shadow-md);transition:transform .2s var(--ease);
+}
+.fb-send:hover{transform:translateY(-2px)}
+.fb-done{display:none;margin-block-start:14px;font-size:.86rem;color:var(--c-gray-600)}
+.fb-done.show{display:block}
+
+/* ---- site footer credit (every view) — discreet ---- */
+.site-foot{
+  max-width:1080px;margin:44px auto 0;padding:18px 20px 6px;
+  border-block-start:1px solid var(--edge-hair);text-align:center;opacity:.72;
+  transition:opacity .2s var(--ease);
+}
+.site-foot:hover{opacity:1}
+.site-foot p{font-size:.72rem;color:var(--c-gray-400);line-height:1.5;margin:0;font-weight:500}
+.site-foot b{color:var(--c-gray-500);font-weight:600}
+.foot-wa{
+  display:inline-flex;align-items:center;gap:5px;margin-block-start:4px;
+  color:var(--c-gray-400);text-decoration:none;font-weight:500;font-size:.72rem;
+  transition:color .2s var(--ease);
+}
+.foot-wa:hover{color:var(--c-gray-700)}
+.foot-wa svg{width:13px;height:13px;flex:none;color:var(--c-gray-400)}
+.foot-wa:hover svg{color:#25D366}
 </style>
 </head>
 <body>
@@ -577,8 +766,8 @@ a{color:inherit}
       </svg>
     </div>
     <div class="hdr-brand-text">
-      <span class="hdr-title">ספירת העומר</span>
-      <span class="hdr-sub">עשר הספירות · 63 שיעורים</span>
+      <span class="hdr-title">סודות עשר הספירות</span>
+      <span class="hdr-sub">קורס וידאו · 63 שיעורים</span>
     </div>
   </div>
   <div class="hdr-now is-meta" id="hdrNow">קורס מלא · 63 שיעורים</div>
@@ -586,6 +775,10 @@ a{color:inherit}
     <div class="hdr-prog-bar"><div class="hdr-prog-fill" id="hdrProgFill"></div></div>
     <span class="hdr-prog-pct" id="hdrProgPct">0%</span>
   </div>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="החלפת מצב בהיר / כהה" title="מצב בהיר / כהה">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M4.5 4.5l1.8 1.8M17.7 17.7l1.8 1.8M2 12h2.5M19.5 12H22M4.5 19.5l1.8-1.8M17.7 6.3l1.8-1.8"/></svg>
+  </button>
 </header>
 
 <div class="layout">
@@ -598,6 +791,11 @@ a{color:inherit}
       </div>
       <div class="sb-bar"><div class="sb-bar-fill" id="sbBarFill"></div></div>
       <div class="sb-prog-count"><span id="sbCount">0</span> מתוך 63 שיעורים הושלמו</div>
+      <!-- מוסתר עד חיבור Supabase (התחברות עדיין לא פעילה) -->
+      <a class="sb-login" id="sbLogin" href="login.html" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span id="sbLoginTxt">התחבר לשמירת ההתקדמות בכל המכשירים</span>
+      </a>
     </div>
     <div class="sb-tools">
       <div class="sb-search">
@@ -616,6 +814,11 @@ a{color:inherit}
         <svg class="sb-amb-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
         <span class="sb-amb-t"><b>תוכנית השותפים</b><span>קיבלת טוב? תחזיר טוב 🤍</span></span>
         <svg class="sb-amb-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <!-- מוסתר עד הגדרת מייל הבעלים (שליחת פידבק עדיין בלי יעד) -->
+      <button class="sb-feedback" id="feedbackBtn" type="button" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>שליחת פידבק</span>
       </button>
     </div>
   </aside>
@@ -682,10 +885,6 @@ a{color:inherit}
       <h1 class="pl-title" id="plTitle"></h1>
       <div class="pl-orig" id="plOrig"></div>
       <div class="video-frame" id="videoFrame"></div>
-      <a class="pl-yt" id="plYt" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.7 2.7 0 0 0-1.9-1.9C18 4.8 12 4.8 12 4.8s-6 0-7.7.5A2.7 2.7 0 0 0 2.4 7.2 28 28 0 0 0 2 12a28 28 0 0 0 .4 4.8 2.7 2.7 0 0 0 1.9 1.9c1.7.5 7.7.5 7.7.5s6 0 7.7-.5a2.7 2.7 0 0 0 1.9-1.9A28 28 0 0 0 22 12a28 28 0 0 0-.4-4.8zM10 15V9l5 3z"/></svg>
-        פתח את השיעור ביוטיוב
-      </a>
       <div class="pl-bar">
         <button class="pl-nav" id="prevBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
@@ -768,16 +967,49 @@ a{color:inherit}
           <p>ככל שתשתפו יותר, כך עוד אנשים ייהנו מהתוכן הזה.</p>
         </div>
       </div>
-
-      <div class="aff-note glass spec">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-        <p><b>שקיפות:</b> הקישור האישי פעיל ומוכן לשיתוף כבר עכשיו, וכל מי שמגיע דרכו נרשם אצלך במכשיר. הפורטל עצמאי לחלוטין ושומר נתונים על המכשיר בלבד — לכן <b>מעקב חי אחר מספר הנרשמים ולוח מובילים חודשי</b> (כמו בפורטל בית המטפלים) ידרשו חיבור למערכת מרכזית. אפשר להוסיף זאת בהמשך.</p>
-      </div>
     </section>
+
+    <footer class="site-foot">
+      <p>מערכת הלמידה נבנתה על ידי <b>הילל אקנין</b></p>
+      <a class="foot-wa" id="footWa" href="https://wa.me/972549116092" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <span>054-911-6092 · לקבלת פרטים</span>
+      </a>
+    </footer>
 
   </main>
 </div>
 <div class="scrim" id="scrim"></div>
+
+<!-- ===================== Share-to-story popup ===================== -->
+<div class="ss-overlay" id="ssOverlay" role="dialog" aria-modal="true" aria-labelledby="ssTitle">
+  <div class="ss-card glass spec">
+    <div class="ss-emoji" aria-hidden="true">🤍</div>
+    <h3 class="ss-title" id="ssTitle">אהבת את השיעור?</h3>
+    <p class="ss-text">שתף חבר בסטורי ותן לעוד אנשים את ההזדמנות לגלות את הקורס.</p>
+    <div class="ss-actions">
+      <button class="ss-share" id="ssShare" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+        <span>שיתוף בסטורי</span>
+      </button>
+      <button class="ss-later" id="ssLater" type="button">אולי אחר כך</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== Feedback modal ===================== -->
+<div class="fb-overlay" id="fbOverlay" role="dialog" aria-modal="true" aria-labelledby="fbTitle">
+  <div class="fb-card glass spec">
+    <button class="fb-x" id="fbClose" type="button" aria-label="סגירה">×</button>
+    <div class="ss-emoji" aria-hidden="true">💬</div>
+    <h3 class="fb-title" id="fbTitle">נשמח לשמוע ממך</h3>
+    <p class="fb-sub">הצעה, תקלה או מחשבה — כל מילה עוזרת לנו לשפר.</p>
+    <input type="text" id="fbName" class="fb-input" placeholder="השם שלך (לא חובה)">
+    <textarea id="fbMsg" class="fb-textarea" rows="4" placeholder="כתוב כאן את הפידבק שלך..."></textarea>
+    <button class="fb-send" id="fbSend" type="button">שליחה</button>
+    <p class="fb-done" id="fbDone">תודה! פותח את אפליקציית המייל לשליחה 🤍</p>
+  </div>
+</div>
 
 <script>
 /* ============================================================
@@ -870,7 +1102,7 @@ for(let w=0; w<7; w++){
     sefira:SEF[w],
     lessons: slice.map((r,i)=>{
       const day=w*7+i+1;
-      return {id:r[0], title:'יום '+day+' · '+SEF[i]+' שב'+SEF[w], orig:r[1], dur:r[2], day:day};
+      return {id:r[0], title:'יום '+day+' · '+SEF[i]+' שב'+SEF[w], orig:/[A-Za-z]/.test(r[1])?'':r[1], dur:r[2], day:day};
     })
   });
 }
@@ -1030,7 +1262,6 @@ function selectLesson(id){
   $('#plOrig').textContent=l.orig||'';
   $('#plOrig').style.display=l.orig?'':'none';
   $('#videoFrame').innerHTML='<iframe src="'+embed(id)+'" title="'+esc(l.title)+'" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>';
-  $('#plYt').href='https://youtu.be/'+id;
 
   const fi=FLAT.indexOf(l);
   $('#prevBtn').disabled=fi<=0;
@@ -1060,13 +1291,57 @@ function syncCompleteBtn(){
 }
 
 function toggleComplete(id){
-  if(completed.has(id))completed.delete(id);
-  else completed.add(id);
+  const nowDone=!completed.has(id);
+  if(nowDone)completed.add(id);
+  else completed.delete(id);
   saveProgress();
   updateProgressUI();
   renderSidebar();
   if(currentId)openModule(BYID[currentId].modIndex,false);
   if(id===currentId)syncCompleteBtn();
+  if(nowDone)openShareStory();
+}
+
+/* ============================================================
+   פופאפ שיתוף בסטורי בסיום שיעור
+   ============================================================ */
+function openShareStory(){const o=$('#ssOverlay');if(o)o.classList.add('show');}
+function closeShareStory(){const o=$('#ssOverlay');if(o)o.classList.remove('show');}
+function shareStory(){
+  const url=refLink();
+  const text='גיליתי קורס וידאו שלם על ספירת העומר ועשר הספירות — 63 שיעורים, בחינם 🤍';
+  if(navigator.share){
+    navigator.share({title:'ספירת העומר · עשר הספירות',text:text,url:url})
+      .then(()=>{bumpShares();closeShareStory();}).catch(()=>{});
+  }else{
+    window.open('https://wa.me/?text='+encodeURIComponent(text+'\n\n'+url),'_blank','noopener');
+    bumpShares();closeShareStory();
+  }
+}
+
+/* ============================================================
+   פידבק — נשלח למייל של בעל הפורטל (להחלפה ל-CRM בעתיד)
+   ============================================================ */
+const FEEDBACK_EMAIL='__OWNER_EMAIL__';   /* למלא את המייל של בעל הפורטל לפני העלאה */
+function openFeedback(){$('#fbOverlay').classList.add('show');$('#fbDone').classList.remove('show');setTimeout(()=>$('#fbMsg').focus(),320);}
+function closeFeedback(){$('#fbOverlay').classList.remove('show');}
+function sendFeedback(){
+  const name=$('#fbName').value.trim();
+  const msg=$('#fbMsg').value.trim();
+  if(!msg){$('#fbMsg').focus();return;}
+  const ctx=currentId&&BYID[currentId]?('\n\n— נשלח מתוך: '+BYID[currentId].title):'';
+  const body=(name?('מאת: '+name+'\n\n'):'')+msg+ctx;
+  const subject='פידבק — סודות עשר הספירות';
+  const email=FEEDBACK_EMAIL.indexOf('@')>-1?FEEDBACK_EMAIL:'';
+  if(email){
+    window.location.href='mailto:'+email+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+    $('#fbDone').classList.add('show');
+    setTimeout(closeFeedback,1800);
+  }else{
+    $('#fbDone').textContent='תודה! (יש להגדיר את מייל הבעלים כדי שהשליחה תפעל)';
+    $('#fbDone').classList.add('show');
+  }
+  $('#fbName').value='';$('#fbMsg').value='';
 }
 
 function step(dir){
@@ -1239,6 +1514,37 @@ function init(){
   $('#nextBtn').addEventListener('click',()=>step(1));
   $('#completeBtn').addEventListener('click',()=>toggleComplete(currentId));
   $('#notesArea').addEventListener('input',saveNote);
+
+  /* פופאפ שיתוף בסטורי */
+  $('#ssShare').addEventListener('click',shareStory);
+  $('#ssLater').addEventListener('click',closeShareStory);
+  $('#ssOverlay').addEventListener('click',e=>{if(e.target.id==='ssOverlay')closeShareStory();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeShareStory();closeFeedback();}});
+
+  /* קרדיט בתחתית — הודעת וואטסאפ מוכנה */
+  const fw=$('#footWa');
+  if(fw)fw.href='https://wa.me/972549116092?text='+encodeURIComponent('היי הילל, ראיתי את מערכת הלמידה ואשמח לקבל פרטים 🤍');
+
+  /* פידבק */
+  $('#feedbackBtn').addEventListener('click',openFeedback);
+  $('#fbClose').addEventListener('click',closeFeedback);
+  $('#fbSend').addEventListener('click',sendFeedback);
+  $('#fbOverlay').addEventListener('click',e=>{if(e.target.id==='fbOverlay')closeFeedback();});
+
+  /* מצב בהיר / כהה */
+  $('#themeToggle').addEventListener('click',()=>{
+    const cur=document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light';
+    const next=cur==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',next);
+    try{localStorage.setItem('omer_theme',next);}catch(e){}
+  });
+  /* עדכון אוטומטי אם המשתמש לא בחר ידנית */
+  if(window.matchMedia){
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',e=>{
+      if(!localStorage.getItem('omer_theme'))
+        document.documentElement.setAttribute('data-theme',e.matches?'dark':'light');
+    });
+  }
 
   $('#menuBtn').addEventListener('click',()=>{
     $('#sidebar').classList.contains('open')?closeSidebar():openSidebar();

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>התחברות · סודות עשר הספירות</title>
+<meta name="description" content="התחברות אופציונלית לשמירת ההתקדמות בכל המכשירים — סודות עשר הספירות.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;600;700&family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --c-black:#0c0c0d; --c-ink:#1a1a1c; --c-gray-700:#4a4a4f; --c-gray-600:#5c5c61;
+  --c-gray-500:#7c7c82; --c-gray-400:#9a9aa0; --c-gray-300:#c4c4c9; --c-white:#fff;
+  --bg-base:#edecef;
+  --glass-light:rgba(255,255,255,.62); --edge:rgba(255,255,255,.7);
+  --shadow-sm:0 4px 14px rgba(20,20,25,.10),0 1px 3px rgba(20,20,25,.06);
+  --shadow-md:0 14px 34px rgba(20,20,25,.13),0 3px 9px rgba(20,20,25,.07);
+  --r-xl:26px; --r-lg:20px; --r-md:14px; --r-sm:10px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --font-display:'Frank Ruhl Libre',Georgia,serif;
+  --font-body:'Heebo',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:var(--font-body);background:var(--bg-base);color:var(--c-ink);
+  -webkit-font-smoothing:antialiased;line-height:1.6;
+  display:flex;align-items:center;justify-content:center;padding:24px;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(46% 38% at 84% 8%, rgba(255,255,255,.95), transparent 72%),
+    radial-gradient(50% 40% at 12% 92%, rgba(210,214,222,.6), transparent 70%),
+    linear-gradient(160deg,#f4f3f6,#e6e5ea);
+}
+.card{
+  width:100%;max-width:410px;border-radius:var(--r-xl);padding:36px 30px 28px;
+  background:var(--glass-light);border:1px solid var(--edge);
+  box-shadow:var(--shadow-md);-webkit-backdrop-filter:blur(24px) saturate(185%);backdrop-filter:blur(24px) saturate(185%);
+  text-align:center;
+}
+.logo{
+  width:54px;height:54px;border-radius:16px;margin:0 auto 16px;
+  background:linear-gradient(135deg,#2a2a2e,#0c0c0d);display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow-sm);
+}
+.logo svg{width:30px;height:30px}
+h1{font-family:var(--font-display);font-weight:700;font-size:1.6rem;color:var(--c-black);letter-spacing:-.01em;margin-bottom:6px}
+.sub{font-size:.9rem;color:var(--c-gray-600);margin-bottom:26px;line-height:1.5}
+.btn-google{
+  display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  padding:13px;border:1px solid var(--c-gray-300);border-radius:var(--r-lg);cursor:pointer;
+  background:#fff;font-family:var(--font-body);font-weight:600;font-size:.98rem;color:var(--c-ink);
+  box-shadow:var(--shadow-sm);transition:transform .2s var(--ease),box-shadow .2s var(--ease);
+}
+.btn-google:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.btn-google svg{width:19px;height:19px;flex:none}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--c-gray-400);font-size:.82rem}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--c-gray-300)}
+.field{text-align:start;margin-bottom:14px}
+.field label{display:block;font-size:.82rem;font-weight:600;color:var(--c-gray-700);margin-bottom:6px}
+.field input{
+  width:100%;padding:12px 14px;border:1px solid var(--c-gray-300);border-radius:var(--r-md);
+  font-family:var(--font-body);font-size:.95rem;color:var(--c-ink);background:rgba(255,255,255,.8);
+  transition:border-color .2s var(--ease),box-shadow .2s var(--ease);
+}
+.field input:focus{outline:none;border-color:var(--c-gray-700);box-shadow:0 0 0 3px rgba(20,20,25,.08)}
+.btn-primary{
+  width:100%;padding:13px;border:none;border-radius:var(--r-lg);cursor:pointer;margin-top:4px;
+  font-family:var(--font-body);font-weight:700;font-size:1rem;color:#fff;
+  background:linear-gradient(135deg,#48484c,#0c0c0d);box-shadow:var(--shadow-md);
+  transition:transform .2s var(--ease);
+}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.toggle{margin-top:18px;font-size:.88rem;color:var(--c-gray-600)}
+.toggle a{color:var(--c-black);font-weight:600;cursor:pointer;text-decoration:underline}
+.skip{display:block;margin-top:20px;font-size:.85rem;color:var(--c-gray-500);text-decoration:none}
+.skip:hover{color:var(--c-gray-700)}
+.msg{margin-top:16px;padding:11px 14px;border-radius:var(--r-md);font-size:.86rem;display:none;text-align:start;line-height:1.5}
+.msg.show{display:block}
+.msg.err{background:rgba(190,40,40,.1);color:#9a2020;border:1px solid rgba(190,40,40,.2)}
+.msg.ok{background:rgba(30,120,60,.1);color:#1c6b35;border:1px solid rgba(30,120,60,.2)}
+.config-warn{
+  margin-top:18px;padding:12px 14px;border-radius:var(--r-md);font-size:.8rem;text-align:start;line-height:1.5;
+  background:rgba(212,175,55,.12);color:#7a5e0a;border:1px solid rgba(212,175,55,.3);display:none;
+}
+.config-warn.show{display:block}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo" aria-hidden="true">
+    <svg viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="13" stroke="#fff" stroke-width="1.4" opacity=".5"/>
+      <circle cx="16" cy="6" r="3.1" fill="#fff" opacity=".9"/>
+      <circle cx="16" cy="26" r="3.1" fill="#fff" opacity=".55"/>
+      <path d="M16 6L8.5 16L16 26L23.5 16Z" stroke="#fff" stroke-width="1.2" opacity=".4"/>
+    </svg>
+  </div>
+  <h1>סודות עשר הספירות</h1>
+  <p class="sub" id="subText">התחברות אופציונלית — לשמירת ההתקדמות וההערות בכל המכשירים שלך.</p>
+
+  <button class="btn-google" id="googleBtn" type="button">
+    <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15A11 11 0 0 0 12 1 11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38z"/></svg>
+    <span>המשך עם Google</span>
+  </button>
+
+  <div class="divider">או</div>
+
+  <form id="authForm">
+    <div class="field">
+      <label for="email">אימייל</label>
+      <input type="email" id="email" autocomplete="email" required placeholder="you@example.com" dir="ltr">
+    </div>
+    <div class="field">
+      <label for="password">סיסמה</label>
+      <input type="password" id="password" autocomplete="current-password" required minlength="6" placeholder="לפחות 6 תווים">
+    </div>
+    <button class="btn-primary" id="submitBtn" type="submit">התחברות</button>
+  </form>
+
+  <p class="toggle" id="toggleLine">אין לך חשבון? <a id="toggleLink">הרשמה</a></p>
+
+  <div class="msg" id="msg"></div>
+  <div class="config-warn" id="configWarn">
+    ⚠️ ההתחברות עדיין לא מחוברת ל-Supabase. יש למלא <code>SUPABASE_URL</code> ו-<code>SUPABASE_ANON_KEY</code> בראש הקובץ.
+  </div>
+
+  <a class="skip" href="index.html">המשך בלי התחברות ←</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ============================================================
+   קונפיג Supabase — מלא את שני הערכים האלה מתוך
+   Supabase Dashboard → Project Settings → API
+   ============================================================ */
+const SUPABASE_URL = '__SUPABASE_URL__';
+const SUPABASE_ANON_KEY = '__SUPABASE_ANON_KEY__';
+
+const $ = s => document.querySelector(s);
+const configured = SUPABASE_URL.startsWith('http') && SUPABASE_ANON_KEY.length > 20;
+let sb = null, mode = 'login';
+
+if (configured) {
+  sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+} else {
+  $('#configWarn').classList.add('show');
+}
+
+function showMsg(text, type){
+  const m = $('#msg');
+  m.textContent = text;
+  m.className = 'msg show ' + (type || 'err');
+}
+
+function setMode(m){
+  mode = m;
+  $('#submitBtn').textContent = m === 'login' ? 'התחברות' : 'הרשמה';
+  $('#password').autocomplete = m === 'login' ? 'current-password' : 'new-password';
+  $('#toggleLine').innerHTML = m === 'login'
+    ? 'אין לך חשבון? <a id="toggleLink">הרשמה</a>'
+    : 'כבר רשום? <a id="toggleLink">התחברות</a>';
+  $('#toggleLink').addEventListener('click', () => setMode(m === 'login' ? 'signup' : 'login'));
+  $('#msg').className = 'msg';
+}
+
+function homeUrl(){ return new URL('index.html', location.href).href; }
+
+$('#googleBtn').addEventListener('click', async () => {
+  if (!sb) { showMsg('ההתחברות עדיין לא מחוברת ל-Supabase.'); return; }
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: homeUrl() }
+  });
+  if (error) showMsg('שגיאה בהתחברות עם Google: ' + error.message);
+});
+
+$('#authForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!sb) { showMsg('ההתחברות עדיין לא מחוברת ל-Supabase.'); return; }
+  const email = $('#email').value.trim();
+  const password = $('#password').value;
+  const btn = $('#submitBtn');
+  btn.disabled = true;
+
+  try {
+    if (mode === 'login') {
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      location.href = homeUrl();
+    } else {
+      const { data, error } = await sb.auth.signUp({
+        email, password,
+        options: { emailRedirectTo: homeUrl() }
+      });
+      if (error) throw error;
+      if (data.session) {
+        location.href = homeUrl();
+      } else {
+        showMsg('נשלח אליך מייל אימות. אשר אותו ואז התחבר.', 'ok');
+      }
+    }
+  } catch (err) {
+    const map = {
+      'Invalid login credentials': 'אימייל או סיסמה שגויים.',
+      'User already registered': 'המשתמש כבר רשום — נסה להתחבר.',
+      'Email not confirmed': 'יש לאשר קודם את מייל האימות.'
+    };
+    showMsg(map[err.message] || ('שגיאה: ' + err.message));
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+$('#toggleLink').addEventListener('click', () => setMode(mode === 'login' ? 'signup' : 'login'));
+
+/* אם כבר מחובר — חזרה לפורטל */
+if (sb) {
+  sb.auth.getSession().then(({ data }) => {
+    if (data.session) location.replace(homeUrl());
+  });
+}
+</script>
+</body>
+</html>
