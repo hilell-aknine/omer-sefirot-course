@@ -1011,6 +1011,8 @@ a{color:inherit}
   </div>
 </div>
 
+<script src="supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 /* ============================================================
    נתונים — 63 שיעורים מתוך פלייליסט היוטיוב
@@ -1128,6 +1130,79 @@ function loadProgress(){
   try{const a=JSON.parse(lsGet(LS.done,'[]'));if(Array.isArray(a))completed=new Set(a.filter(id=>BYID[id]));}catch(e){}
 }
 function saveProgress(){lsSet(LS.done,JSON.stringify([...completed]));}
+
+/* ============================================================
+   Supabase — התחברות + סנכרון התקדמות לענן (אופציונלי)
+   הפורטל עובד מלא גם בלי התחברות; זה רק מסנכרן בין מכשירים.
+   ============================================================ */
+const SB = (window.SUPABASE_CONFIG && window.supabase &&
+            String((window.SUPABASE_CONFIG||{}).anonKey||'').indexOf('eyJ')===0)
+  ? supabase.createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey)
+  : null;
+let authUser=null, pushTimer=null;
+function syncEnabled(){return !!(SB && authUser);}
+
+async function initAuth(){
+  if(!SB) return;   /* לא מוגדר — קישור ההתחברות נשאר מוסתר */
+  try{const {data}=await SB.auth.getSession();authUser=data.session?.user||null;}
+  catch(e){authUser=null;}
+  updateAuthUI();
+  if(authUser) await pullCloudProgress();
+  SB.auth.onAuthStateChange((_e,session)=>{
+    authUser=session?.user||null;
+    updateAuthUI();
+    if(authUser) pullCloudProgress();
+  });
+}
+
+function updateAuthUI(){
+  const link=$('#sbLogin'), txt=$('#sbLoginTxt');
+  if(!link||!txt||!SB) return;
+  link.removeAttribute('hidden');   /* Supabase פעיל → מציגים כניסה */
+  if(authUser){
+    txt.textContent='מחובר · '+(authUser.email||'')+' · יציאה';
+    link.setAttribute('href','#');
+    link.onclick=async(ev)=>{ev.preventDefault();await SB.auth.signOut();location.reload();};
+  }else{
+    txt.textContent='התחבר לשמירת ההתקדמות בכל המכשירים';
+    link.setAttribute('href','login.html');
+    link.onclick=null;
+  }
+}
+
+async function pullCloudProgress(){
+  if(!syncEnabled()) return;
+  try{
+    const {data,error}=await SB.from('user_progress')
+      .select('completed,notes,last_lesson').eq('user_id',authUser.id).maybeSingle();
+    if(error){console.warn('[sync] pull:',error.message);return;}
+    if(data){
+      (Array.isArray(data.completed)?data.completed:[]).forEach(id=>{if(BYID[id])completed.add(id);});
+      saveProgress();
+      if(data.notes&&typeof data.notes==='object')
+        Object.entries(data.notes).forEach(([id,t])=>{if(t)lsSet(LS.note(id),t);});
+      updateProgressUI();renderSidebar();
+      if(currentId)openModule(BYID[currentId].modIndex,false);
+      if(!$('#dashboard').hidden)renderDashboard();
+    }
+    pushCloudProgress();   /* כתיבת המצב הממוזג חזרה לענן */
+  }catch(e){console.warn('[sync] pull ex:',e);}
+}
+
+function pushCloudProgress(){
+  if(!syncEnabled()) return;
+  clearTimeout(pushTimer);
+  pushTimer=setTimeout(async()=>{
+    const notes={};
+    FLAT.forEach(l=>{const n=lsGet(LS.note(l.id),'');if(n)notes[l.id]=n;});
+    const payload={user_id:authUser.id,completed:[...completed],notes,
+      last_lesson:lsGet(LS.last,null),updated_at:new Date().toISOString()};
+    try{
+      const {error}=await SB.from('user_progress').upsert(payload,{onConflict:'user_id'});
+      if(error)console.warn('[sync] push:',error.message);
+    }catch(e){console.warn('[sync] push ex:',e);}
+  },800);
+}
 
 /* ============================================================
    עזרי תצוגה
@@ -1299,6 +1374,7 @@ function toggleComplete(id){
   renderSidebar();
   if(currentId)openModule(BYID[currentId].modIndex,false);
   if(id===currentId)syncCompleteBtn();
+  pushCloudProgress();
   if(nowDone)openShareStory();
 }
 
@@ -1374,6 +1450,7 @@ function saveNote(){
   const s=$('#notesSaved'); s.classList.add('show');
   clearTimeout(noteTimer);
   noteTimer=setTimeout(()=>s.classList.remove('show'),1600);
+  pushCloudProgress();
 }
 
 /* ============================================================
@@ -1478,6 +1555,7 @@ function init(){
   renderSidebar();
   updateProgressUI();
   renderDashboard();
+  initAuth();
 
   /* total length */
   const totMin=FLAT.reduce((s,l)=>s+durMin(l.dur),0);

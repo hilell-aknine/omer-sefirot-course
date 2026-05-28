@@ -22,6 +22,7 @@
   --font-body:'Heebo',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
 html,body{height:100%}
 body{
   font-family:var(--font-body);background:var(--bg-base);color:var(--c-ink);
@@ -103,12 +104,13 @@ h1{font-family:var(--font-display);font-weight:700;font-size:1.6rem;color:var(--
   <h1>סודות עשר הספירות</h1>
   <p class="sub" id="subText">התחברות אופציונלית — לשמירת ההתקדמות וההערות בכל המכשירים שלך.</p>
 
-  <button class="btn-google" id="googleBtn" type="button">
+  <!-- כפתור Google מוסתר זמנית (התבקש "בלי גוגל כרגע"). להפעלה: הסר hidden + הגדר Google provider ב-Supabase -->
+  <button class="btn-google" id="googleBtn" type="button" hidden>
     <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15A11 11 0 0 0 12 1 11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38z"/></svg>
     <span>המשך עם Google</span>
   </button>
 
-  <div class="divider">או</div>
+  <div class="divider" id="googleDivider" hidden>או</div>
 
   <form id="authForm">
     <div class="field">
@@ -132,17 +134,15 @@ h1{font-family:var(--font-display);font-weight:700;font-size:1.6rem;color:var(--
   <a class="skip" href="index.html">המשך בלי התחברות ←</a>
 </div>
 
+<script src="supabase-config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* ============================================================
-   קונפיג Supabase — מלא את שני הערכים האלה מתוך
-   Supabase Dashboard → Project Settings → API
-   ============================================================ */
-const SUPABASE_URL = '__SUPABASE_URL__';
-const SUPABASE_ANON_KEY = '__SUPABASE_ANON_KEY__';
+/* קונפיג מגיע מ-supabase-config.js (קובץ יחיד להחלפה במסירה) */
+const SUPABASE_URL = (window.SUPABASE_CONFIG||{}).url || '';
+const SUPABASE_ANON_KEY = (window.SUPABASE_CONFIG||{}).anonKey || '';
 
 const $ = s => document.querySelector(s);
-const configured = SUPABASE_URL.startsWith('http') && SUPABASE_ANON_KEY.length > 20;
+const configured = SUPABASE_URL.startsWith('http') && SUPABASE_ANON_KEY.length > 20 && !SUPABASE_ANON_KEY.startsWith('__');
 let sb = null, mode = 'login';
 
 if (configured) {
